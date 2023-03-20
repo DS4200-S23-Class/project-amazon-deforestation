@@ -104,6 +104,14 @@ d3.csv("def_data.csv").then((data) => {
         .style("fill", "none")
         .style("stroke", "#CC0000")
         .style("stroke-width", "2");
+
+        const value = document.querySelector("#year")
+		const input = document.querySelector("#slider")
+		value.textContent = input.value
+		input.addEventListener("input", (event) => {
+  			value.textContent = event.target.value
+		})
+
 }
 
 	)
