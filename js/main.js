@@ -1,64 +1,56 @@
 // JS File for Amazon Deforestation Project
 // Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
-// Last Modified: 03.19.2023
+// Last Modified: 03.20.2023
 
-// Instantiate visualization dimensions/limitations
-const FRAME_HEIGHT = 500;
-const FRAME_WIDTH = 500; 
-const MARGINS = {left: 50, right: 50, top: 50, bottom: 50};
+// Set the dimensions and margins of the graph
+const margin = {top: 10, right: 30, bottom: 30, left: 40},
+    width = 460 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
-const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
-const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
+// Append the svg object to the body of the page
+const svg = d3.select("#vis-enc-1")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+      	  `translate(${margin.left},${margin.top})`);
 
-// Read in the data
-d3.csv("avg_def_data.csv").then((data) => {
+// Get the data
+d3.csv("avg_def_data.csv").then( function(data) {
 
-	// Create the scales and bin range for the histogram
-	const ySCALE_REV = d3.scaleLinear() 
-	    .domain([0, d3.max(data, (d) => { return d.Average_Proportion_Area_Deforested; })])  
-	    .range([VIS_HEIGHT, 0]);
+	// X axis: scale and draw:
+	const x = d3.scaleLinear()
+	    .domain([2000, 2021])
+	    .range([0, width]);
+	svg.append("g")
+	    .attr("transform", `translate(0, ${height})`)
+	    .call(d3.axisBottom(x));
 
-	const xSCALE = d3.scaleLinear()
-	    .domain([d3.min(data, function(d) { return d.Range_Minimums; }), d3.max(data, function(d) { return d.Range_Maximums; })])
-	    .range([0, VIS_WIDTH]);
-
+	// Set the parameters for the histogram
 	const histogram = d3.histogram()
-	    .value(function(d) { return d.Midyear; })
-	    .domain(xSCALE.domain())
-	    .thresholds(xSCALE.ticks(7));
+	    .value(function(d) { return d.Average_Proportion_Area_Deforested; })
+	    .domain(x.domain())
+	    .thresholds(x.ticks(7));
 
-	const BINS = histogram(data);
+	// And apply this function to data to get the bins
+	const bins = histogram(data);
 
-	// Append the bars to the FRAME1 element
-	const FRAME1 = d3.select("#vis-enc-1").append("svg")
-        .attr("height", FRAME_HEIGHT)
-        .attr("width", FRAME_WIDTH)
-        .attr("class", "frame");
+	// Y axis: scale and draw:
+	const y = d3.scaleLinear()
+	    .range([height, 0]);
+	    y.domain([0, d3.max(bins, function(d) { return d.length; })]);
+	svg.append("g")
+	    .call(d3.axisLeft(y));
 
-    FRAME1.selectAll("rect")
-        .data(BINS)
-        .enter()
-        .append("rect")
-        .attr("x", function(d) { return xSCALE(d.Range_Minimums); })
-        .attr("y", function(d) { return VIS_HEIGHT - ySCALE_REV(d.Average_Proportion_Area_Deforested); })
-        .attr("width", function(d) { return xSCALE(d.Range_Maximums) - xSCALE(d.Range_Minimums) + 1; })
-        .attr("height", function(d) { return ySCALE_REV(d.Average_Proportion_Area_Deforested); })
-        .style("fill", "rosybrown")
-        .style("stroke", "saddlebrown");
-
-    // Create the x-axis
-	FRAME1.append("g")
-	    .attr("transform", "translate(" + MARGINS.left + 
-		   "," + (VIS_HEIGHT + MARGINS.bottom) + ")")
-	    .call(d3.axisBottom(xSCALE))
-	    .selectAll("text")
-		  .attr("font-size", "10px");
-
-	// Create the y-axis
-	FRAME1.append("g")
-	    .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")") 
-	    .call(d3.axisLeft(ySCALE_REV))
-	    .selectAll("text")
-		  .attr("font-size", "10px");
+	// Append the bar rectangles to the svg element
+    svg.selectAll("rect")
+        .data(bins)
+        .join("rect")
+          .attr("x", 1)
+      .attr("transform", function(d) { return `translate(${x(d.x0)} , ${y(d.length)})`})
+          .attr("width", function(d) { return x(d.x1) - x(d.x0) -1})
+          .attr("height", function(d) { return height - y(d.length); })
+          .style("fill", "#69b3a2")
 
 });
