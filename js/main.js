@@ -10,6 +10,12 @@ const MARGINS = {left: 50, right: 50, top: 50, bottom: 50};
 const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
 const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
 
+// Append the bars to the FRAME1 element
+const FRAME1 = d3.select("#vis-enc-1").append("svg")
+    .attr("height", FRAME_HEIGHT)
+    .attr("width", FRAME_WIDTH)
+    .attr("class", "frame");
+
 // Read in the data
 d3.csv("avg_def_data.csv").then((data) => {
 
@@ -21,19 +27,6 @@ d3.csv("avg_def_data.csv").then((data) => {
 	const xSCALE = d3.scaleLinear()
 	    .domain([d3.min(data, function(d) { return d.Range_Minimums; }), d3.max(data, function(d) { return d.Range_Maximums; })])
 	    .range([0, VIS_WIDTH]);
-
-	// const histogram = d3.histogram()
-	//     .value(function(d) { return d.Midyear; })
-	//     .domain(xSCALE.domain())
-	//     .thresholds(xSCALE.ticks(7));
-
-	// const BINS = histogram(data);
-
-	// Append the bars to the FRAME1 element
-	const FRAME1 = d3.select("#vis-enc-1").append("svg")
-        .attr("height", FRAME_HEIGHT)
-        .attr("width", FRAME_WIDTH)
-        .attr("class", "frame");
 
     FRAME1.selectAll("rect")
         .data(data)
@@ -75,10 +68,10 @@ d3.csv("def_data.csv").then((data) => {
 	    .range([0, VIS_WIDTH]);
 
 	// Append the points to the FRAME1 element
-	const FRAME1 = d3.select("#vis-enc-1").append("svg")
-        .attr("height", FRAME_HEIGHT)
-        .attr("width", FRAME_WIDTH)
-        .attr("class", "frame");
+	// const FRAME1 = d3.select("#vis-enc-1").append("svg")
+    //     .attr("height", FRAME_HEIGHT)
+    //     .attr("width", FRAME_WIDTH)
+    //     .attr("class", "frame");
 
     let myPoints = FRAME1.append("g")
   		.selectAll("points")  
