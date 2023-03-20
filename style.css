@@ -1,7 +1,13 @@
+/* Set font of page to Arial */
 body {
     font-family: Arial;
 }
 
 h1 {
     text-align: center;
+}
+
+/* Add class styling the bars of the barplot */
+.bar {
+    fill: rosybrown;
 }
