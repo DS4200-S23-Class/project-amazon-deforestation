@@ -100,9 +100,42 @@ d3.csv("def_data.csv").then((data) => {
 	})
 
 	
-}
+})
 
-	)
+const FRAME2 = d3.select("#vis-enc-2").append("svg")
+    .attr("height", FRAME_HEIGHT)
+    .attr("width", FRAME_WIDTH)
+    .attr("class", "frame");
+
+d3.csv("def_data.csv").then((data) => {
+
+	// Create the scales for the scatter plot
+	const ySCALE_REV = d3.scaleLinear() 
+	    .domain([0, d3.max(data, (d) => { return d.y_coord; })])  
+	    .range([VIS_HEIGHT, 0]);
+
+	const xSCALE = d3.scaleLinear()
+	    .domain([d3.min(data, function(d) { return d.x_coord; }), d3.max(data, function(d) { return d.x_coord; })])
+	    .range([0, VIS_WIDTH]);
+
+    let myPoints = FRAME2.append("g")
+  		.selectAll("points")  
+	      .data(data) // Passed from .then  
+	      .enter()       
+	      .append("circle")
+	      	 .attr("cx", (d) => { return (xSCALE(d.x_coord) + MARGINS.left); }) 
+	         .attr("cy", (d) => { return (ySCALE_REV(d.y_coord) + MARGINS.top); }) 
+	         .attr("r", 10)
+	         .attr("class", "point")
+			 .style("fill", "green");
+	
+	const value = document.querySelector("#year")
+	const input = document.querySelector("#slider")
+	value.textContent = input.value
+	input.addEventListener("input", (event) => {
+		value.textContent = event.target.value
+	})
+})
 
 
 // create a function that will show and hide the text for motivation
