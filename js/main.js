@@ -34,7 +34,7 @@ d3.csv("avg_def_data.csv").then((data) => {
         .append("rect")
         .attr("x", function(d) { return xSCALE(d.Range_Minimums) + MARGINS.left; })
         .attr("y", function(d) { return ySCALE_REV(d.Average_Proportion_Area_Deforested) + MARGINS.top; })
-        .attr("width", function(d) { return xSCALE(d.Range_Maximums) - xSCALE(d.Range_Minimums) + 1; })
+        .attr("width", function(d) { return xSCALE(d.Range_Maximums) - xSCALE(d.Range_Minimums); })
         .attr("height", function(d) { return VIS_HEIGHT - ySCALE_REV(d.Average_Proportion_Area_Deforested); })
         .style("fill", "rosybrown")
         .style("stroke", "saddlebrown");
