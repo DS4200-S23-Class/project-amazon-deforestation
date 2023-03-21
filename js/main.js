@@ -67,12 +67,6 @@ d3.csv("def_data.csv").then((data) => {
 	    .domain([d3.min(data, function(d) { return d.Year; }), d3.max(data, function(d) { return d.Year; })])
 	    .range([0, VIS_WIDTH]);
 
-	// Append the points to the FRAME1 element
-	// const FRAME1 = d3.select("#vis-enc-1").append("svg")
-    //     .attr("height", FRAME_HEIGHT)
-    //     .attr("width", FRAME_WIDTH)
-    //     .attr("class", "frame");
-
     let myPoints = FRAME1.append("g")
   		.selectAll("points")  
 	      .data(data) // Passed from .then  
@@ -98,13 +92,14 @@ d3.csv("def_data.csv").then((data) => {
         .style("stroke", "#CC0000")
         .style("stroke-width", "2");
 
-        const value = document.querySelector("#year")
-		const input = document.querySelector("#slider")
-		value.textContent = input.value
-		input.addEventListener("input", (event) => {
-  			value.textContent = event.target.value
-		})
+    const value = document.querySelector("#year")
+	const input = document.querySelector("#slider")
+	value.textContent = input.value
+	input.addEventListener("input", (event) => {
+  		value.textContent = event.target.value
+	})
 
+	
 }
 
 	)
