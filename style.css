@@ -23,6 +23,7 @@ h1 {
     margin-left: auto;
     margin-right: auto;
     justify-content: center;
+    position: relative;
 }
 
 datalist {
@@ -35,7 +36,7 @@ datalist {
 }
 
 option {
-  margin-right: 19%;
+  margin-right: 18.8%;
 }
 
 input[type="range"] {
