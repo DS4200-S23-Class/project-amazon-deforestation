@@ -44,7 +44,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 					   .style("border", "solid")
 					   .style("border-width", "2px")
 					   .style("border-radius", "7px")
-					   .style("padding", "70px")
+					   .style("padding", "3px")
 					   .style("position", "absolute");
 
 	// Define event handler functions for tooltips
@@ -62,9 +62,9 @@ d3.csv("avg_def_data.csv").then((data) => {
     function handleMousemove(event, d) {
       
        // Position the tooltip and fill in information 
-       TOOLTIP.html("Category: " + d.Year_Range + "<br>Value: " + d3.round(d.Average_Proportion_Area_Deforested, 3))
+       TOOLTIP.html("Category: " + d.Year_Range + "<br>Value: " + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
                .style("left", event.x + "px")
-               .style("top", event.y + "px"); // Place the tooltip
+               .style("top", (event.y - 10) + "px"); // Place the tooltip
     }
 
     function handleMouseleave(event, d) {
