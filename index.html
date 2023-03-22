@@ -65,8 +65,9 @@
     </div>
 
     <!-- Add slider for the visualizations -->
-    <div id="sliderContainer">
-        <input id="slider" type="range" min="2000" max="2021" step="1"/>
+    <div id="sliderContainer" onload="sliderTicks()">
+        <input type="range" id="slider"  min="2000" max="2021" step="1" list="ticks">
+        <datalist id="ticks"></datalist>
         <p>
             Year Selected: 
             <output id="year"></output>
@@ -94,6 +95,11 @@
             <li><a href="https://www.kaggle.com/datasets/diegosilvadefrana/brazilian-deforestation-from-2000-to-2021?resource=download&select=data.csv">Original Dataset (Kaggle)</a></li>
             <li><a href="https://codepen.io/DougManuel/pen/avRyMg">Slider Inspiration</a></li>
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">Assistance For Slider Creation</a></li>
+            <li><a href="https://stackoverflow.com/questions/17929356/html-datalist-values-from-array-in-javascript">Shortening Slider Ticks Code</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML">Understanding InnerHTML</a></li>
+            <li><a href="https://www.tutorialspoint.com/How-do-I-call-a-JavaScript-function-on-page-load#:~:text=The%20first%20approach%20for%20calling,the%20function%20from%20the%20JavaScript.">OnLoad For Slider</a></li>
+            <li><a href="https://css-tricks.com/can-get-pretty-far-making-slider-just-html-css/">Slider Snap</a></li>
+
         </ul>
     </div>
 

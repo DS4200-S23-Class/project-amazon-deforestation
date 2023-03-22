@@ -2,6 +2,13 @@
 // Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
 // Last Modified: 03.20.2023
 
+
+// Insert tick marks onto slider
+let ticks = document.getElementById("ticks");
+for (let i = 2000; i < 2022; i++) {
+	ticks.innerHTML += '<option value="' + i + '" label="' + i + '" ></option>';
+}
+
 // Instantiate visualization dimensions/limitations
 const FRAME_HEIGHT = 500;
 const FRAME_WIDTH = 500; 
@@ -98,7 +105,7 @@ d3.csv("avg_def_data.csv").then((data) => {
         .attr("x", 245)
         .attr("y", 490)
         .attr("text-anchor", "middle")
-        .text("years");
+        .text("Years");
 
 	// Create the y-axis
 	FRAME1.append("g")
@@ -113,7 +120,7 @@ d3.csv("avg_def_data.csv").then((data) => {
         .attr("x", -260)
         .attr("y", 12)
         .attr("text-anchor", "middle")
-        .text("proportion of area deforested");
+        .text("Proportion of Area Deforested");
 
     // Provide a title for the graph
 	FRAME1.append("text")
