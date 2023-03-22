@@ -30,6 +30,15 @@ datalist {
   flex-direction: row;
   justify-content: space-between;
   writing-mode: horizontal-tb;
-  width: 18.5%;
+  width: 200px;
+  text-align: center;
 }
 
+option {
+  margin-right: 19%;
+}
+
+input[type="range"] {
+  width: 200px;
+  margin: 0;
+}
