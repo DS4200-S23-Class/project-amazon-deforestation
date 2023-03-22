@@ -28,16 +28,62 @@ d3.csv("avg_def_data.csv").then((data) => {
 	    .domain([d3.min(data, function(d) { return d.Range_Minimums; }), d3.max(data, function(d) { return d.Range_Maximums; })])
 	    .range([0, VIS_WIDTH]);
 
-    FRAME1.selectAll("rect")
-        .data(data)
-        .enter()
-        .append("rect")
+	// Create a tooltip for the barplot
+    const TOOLTIP = d3.select("#vis-enc-1")
+                       .append("div")
+					   .attr("class", "tooltip")
+					   .style("opacity", 0)
+					   .style("background-color", "lightgrey")
+					   .style("border", "solid")
+					   .style("border-width", "2px")
+					   .style("border-radius", "7px")
+					   .style("padding", "70px")
+					   .style("position", "absolute");
+
+	// Define event handler functions for tooltips
+    function handleMouseover(event, d) {
+      
+       // Make opaque on mouseover
+       TOOLTIP.style("opacity", 1);
+
+       // Highlight the bar (and outline for accessibility) on mouseover
+       d3.select(this).style("fill", "lightseagreen")
+      				  .style("stroke", "black")
+      				  .style("stroke-width", "3px");
+    }
+
+    function handleMousemove(event, d) {
+      
+       // Position the tooltip and fill in information 
+       TOOLTIP.html("Category: " + d.Year_Range + "<br>Value: " + d3.round(d.Average_Proportion_Area_Deforested, 3))
+               .style("left", event.x + "px")
+               .style("top", event.y + "px"); // Place the tooltip
+    }
+
+    function handleMouseleave(event, d) {
+      
+       // Make transparent on mouseleave
+   	   // return column fill and stroke to original
+       TOOLTIP.style("opacity", 0);
+       d3.select(this).style("fill", "rosybrown")
+      				  .style("stroke", "saddlebrown"); 
+    }
+
+    // Create the bars and add event listeners
+    FRAME1.selectAll("bar")
+      .data(data)
+      .enter()
+      .append("rect")
         .attr("x", function(d) { return xSCALE(d.Range_Minimums) + MARGINS.left; })
         .attr("y", function(d) { return ySCALE_REV(d.Average_Proportion_Area_Deforested) + MARGINS.top; })
         .attr("width", function(d) { return xSCALE(d.Range_Maximums) - xSCALE(d.Range_Minimums); })
         .attr("height", function(d) { return VIS_HEIGHT - ySCALE_REV(d.Average_Proportion_Area_Deforested); })
+        .attr("class", "bar")
         .style("fill", "rosybrown")
-        .style("stroke", "saddlebrown");
+        .style("stroke", "saddlebrown")
+       .on("mouseover", handleMouseover) // Add event listeners
+       .on("mousemove", handleMousemove)
+       .on("mouseleave", handleMouseleave);
 
     // Create the x-axis
 	FRAME1.append("g")
@@ -47,12 +93,35 @@ d3.csv("avg_def_data.csv").then((data) => {
 	    .selectAll("text")
 		  .attr("font-size", "10px");
 
+    // Provide a label for the x-axis
+    FRAME1.append("text")
+        .attr("x", 245)
+        .attr("y", 490)
+        .attr("text-anchor", "middle")
+        .text("years");
+
 	// Create the y-axis
 	FRAME1.append("g")
 	    .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")") 
 	    .call(d3.axisLeft(ySCALE_REV))
 	    .selectAll("text")
 		  .attr("font-size", "10px");
+
+    // Provide a label for the y-axis
+    FRAME1.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -260)
+        .attr("y", 12)
+        .attr("text-anchor", "middle")
+        .text("proportion of area deforested");
+
+    // Provide a title for the graph
+	FRAME1.append("text")
+        .attr("x", 255)
+        .attr("y", 20)
+        .attr("text-anchor", "middle")
+        .style("font-size", "22px")
+        .text("Deforestation in the Amazon");
 
 });
 
