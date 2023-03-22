@@ -20,6 +20,9 @@ const FRAME1 = d3.select("#vis-enc-1").append("svg")
 // Read in the data
 d3.csv("avg_def_data.csv").then((data) => {
 
+	// Print the data
+	console.log(data)
+
 	// Create the scales and bin range for the histogram
 	const ySCALE_REV = d3.scaleLinear() 
 	    .domain([0, d3.max(data, (d) => { return d.Average_Proportion_Area_Deforested; })])  
@@ -128,6 +131,9 @@ d3.csv("avg_def_data.csv").then((data) => {
 
 d3.csv("def_data.csv").then((data) => {
 
+	// Print the data
+	console.log(data)
+
 	// Create the scales for the scatter plot
 	const ySCALE_REV = d3.scaleLinear() 
 	    .domain([0, d3.max(data, (d) => { return d.Proportion_Area_Deforested; })])  
@@ -178,6 +184,9 @@ const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("class", "frame");
 
 d3.csv("all_scatter_points.csv").then((data) => {
+
+	// Print the data
+	console.log(data)
 
 	const MAX_X_LENGTH = d3.max(data, (d) => { return parseInt(d.x); });
   	const MAX_Y_LENGTH = d3.max(data, (d) => { return parseInt(d.y); });
