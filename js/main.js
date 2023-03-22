@@ -201,13 +201,6 @@ d3.csv("all_scatter_points.csv").then((data) => {
 	         .attr("r", 10)
 	         .attr("class", "point")
 			 .style("fill", "green");
-	
-	const value = document.querySelector("#year")
-	const input = document.querySelector("#slider")
-	value.textContent = input.value
-	input.addEventListener("input", (event) => {
-		value.textContent = event.target.value
-	})
 })
 
 
