@@ -3,12 +3,6 @@
 // Last Modified: 03.20.2023
 
 
-// Insert tick marks onto slider
-let ticks = document.getElementById("ticks");
-for (let i = 2000; i < 2022; i++) {
-	ticks.innerHTML += '<option value="' + i + '" label="' + i + '" ></option>';
-}
-
 // Instantiate visualization dimensions/limitations
 const FRAME_HEIGHT = 500;
 const FRAME_WIDTH = 500; 

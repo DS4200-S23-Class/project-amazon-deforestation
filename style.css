@@ -11,35 +11,3 @@ h1 {
 .bar {
     fill: rosybrown;
 }
-
-/* Add class styling the slider */
-#slider {
-    width: 100%;
-    height: 100%;
-    scroll-snap-type: x mandatory;
-}
-
-#slideContainer {
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-    position: relative;
-}
-
-datalist {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  writing-mode: horizontal-tb;
-  width: 200px;
-  text-align: center;
-}
-
-option {
-  margin-right: 18.8%;
-}
-
-input[type="range"] {
-  width: 200px;
-  margin: 0;
-}
