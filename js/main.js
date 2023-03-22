@@ -107,24 +107,27 @@ const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("width", FRAME_WIDTH)
     .attr("class", "frame");
 
-d3.csv("def_data.csv").then((data) => {
+d3.csv("all_scatter_points.csv").then((data) => {
 
-	// Create the scales for the scatter plot
-	const ySCALE_REV = d3.scaleLinear() 
-	    .domain([0, d3.max(data, (d) => { return d.y_coord; })])  
+	const MAX_X_LENGTH = d3.max(data, (d) => { return parseInt(d.x); });
+  	const MAX_Y_LENGTH = d3.max(data, (d) => { return parseInt(d.y); });
+
+	// Create the scales for scatter plot
+	const ySCALE = d3.scaleLinear() 
+	    .domain([0, MAX_Y_LENGTH])
 	    .range([VIS_HEIGHT, 0]);
 
 	const xSCALE = d3.scaleLinear()
-	    .domain([d3.min(data, function(d) { return d.x_coord; }), d3.max(data, function(d) { return d.x_coord; })])
+	    .domain([0, MAX_X_LENGTH])
 	    .range([0, VIS_WIDTH]);
-
+	
     let myPoints = FRAME2.append("g")
   		.selectAll("points")  
 	      .data(data) // Passed from .then  
 	      .enter()       
 	      .append("circle")
-	      	 .attr("cx", (d) => { return (xSCALE(d.x_coord) + MARGINS.left); }) 
-	         .attr("cy", (d) => { return (ySCALE_REV(d.y_coord) + MARGINS.top); }) 
+	      	 .attr("cx", (d) => { return (xSCALE(d.x) + MARGINS.left); })
+	         .attr("cy", (d) => { return (ySCALE(d.y) + MARGINS.top); })
 	         .attr("r", 10)
 	         .attr("class", "point")
 			 .style("fill", "green");
