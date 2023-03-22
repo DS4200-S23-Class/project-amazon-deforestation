@@ -200,7 +200,15 @@ d3.csv("all_scatter_points.csv").then((data) => {
 	         .attr("cy", (d) => { return (ySCALE(d.y) + MARGINS.top); })
 	         .attr("r", 10)
 	         .attr("class", "point")
-			 .style("fill", "green");
+			 .attr("r", 8)
+	         .attr("class", "point")
+			 .attr("fill", function (d) {
+				if(d.x < 8 || (d.x == 8 && d.y < 17)){
+				  return "green"
+				} else {
+				  return "rosybrown"
+				}
+			});
 })
 
 
