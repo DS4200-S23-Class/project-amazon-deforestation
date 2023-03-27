@@ -257,3 +257,51 @@ function showData() {
 
 document.getElementById("button-div").addEventListener("click", showData)
 
+
+d3.csv("all_pie_slices.csv").then(function(data) {
+
+	const pieData = d3.nest()
+	    .key(function(d) { return d.Placeholder; })
+	    .rollup(function(v) { return d3.sum(v, function(d) { return d.Deforested_Forested_Percentages_2000; }); })
+	    .entries(data);
+
+	// Create a FRAME3 element for the pie chart
+	const FRAME3 = d3.select("#vis-enc-3")
+	    .append("svg")
+	    .attr("width", FRAME_WIDTH)
+        .attr("height", FRAME_HEIGHT)
+        .attr("class", "frame")
+        .append("g")
+        .attr("transform", "translate(" + FRAME_WIDTH/2 + "," + FRAME_HEIGHT/2 + ")");
+
+    const pie = d3.pie()
+        .value(function(d) { return d.Deforested_Forested_Percentages_2000; });
+
+    const path = FRAME3.selectAll("path")
+        .data(pie(pieData))
+        .enter()
+        .append("path")
+        .attr("d", d3.arc()
+          .innerRadius(0)
+          .outerRadius(Math.min(FRAME_WIDTH, FRAME_HEIGHT) / 2)
+        );
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

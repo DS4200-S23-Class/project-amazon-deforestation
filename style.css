@@ -11,3 +11,8 @@ h1 {
 .bar {
     fill: rosybrown;
 }
+
+path {
+  fill: blue;
+  stroke: white;   
+}
