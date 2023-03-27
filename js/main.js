@@ -215,9 +215,15 @@ d3.csv("all_scatter_points.csv").then((data) => {
 				if(d.x < 8 || (d.x == 8 && d.y < 17)){
 				  return "green"
 				} else {
-				  return "rosybrown"
-				}
-			});
+				  return "white"
+				}})
+			 .attr("stroke", function (d) {
+				if(d.x < 8 || (d.x == 8 && d.y < 17)){
+					return "darkgreen"
+				} else {
+					return "brown"
+				}})
+			 .attr("stroke-width", 2);
 })
 
 
