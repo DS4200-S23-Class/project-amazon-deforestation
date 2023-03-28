@@ -166,9 +166,9 @@ d3.csv("def_data.csv").then((data) => {
 	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
 	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
 	         .attr("r", 2)
-	         // .attr("class", "point");
-	         .attr("class", (d) => {d.x})
-	         .attr("fill", "black");
+	         .attr("class", "point");
+	         // .attr("class", (d) => {d.x})
+	         // .attr("fill", "black");
 
 
 	let myLine = d3.line()
@@ -196,27 +196,27 @@ d3.csv("def_data.csv").then((data) => {
 	
 })
 
-// Updates the chart when slider is moved?
-function yearSelectedData(year) {
-	d3.selectAll("points")
-	  .filter(function(d) {
-	  	console.log("hi2");
-	  		return d3.select(this).attr("class") == year;
-  	  })
-  	  .attr("class", function (d) {
-  	  					if(d.x == year){
-  	  						return "selected"
-						} else {
-				  			return (d) => {d.x}
-						}
-	  })
-};
+// // Updates the chart when slider is moved?
+// function yearSelectedData(year) {
+// 	d3.selectAll("points")
+// 	  .filter(function(d) {
+// 	  	console.log("hi2");
+// 	  		return d3.select(this).attr("class") == year;
+//   	  })
+//   	  .attr("class", function (d) {
+//   	  					if(d.x == year){
+//   	  						return "selected"
+// 						} else {
+// 				  			return (d) => {d.x}
+// 						}
+// 	  })
+// };
 
-// Listens to slider and calls function above
-d3.select("#slider").on("change", function(d){
-    selectedValue = this.value
-    yearSelectedData(selectedValue);
-})
+// // Listens to slider and calls function above
+// d3.select("#slider").on("change", function(d){
+//     selectedValue = this.value
+//     yearSelectedData(selectedValue);
+// })
 
 const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("height", FRAME_HEIGHT)
