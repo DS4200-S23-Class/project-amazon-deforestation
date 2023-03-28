@@ -195,6 +195,31 @@ d3.csv("def_data.csv").then((data) => {
 	
 })
 
+// A function that update the chart when slider is moved?
+function yearSelectedData(year) {
+	d3.selectAll("points")
+	  .filter(function(d) {
+	  	console.log("hi2");
+	  		return d3.select(this).attr("class") == year;
+  	  })
+  	  .attr("class", function (d) {
+  	  					if(d.x == year){
+  	  						return "selected"
+						} else {
+				  			return (d) => {d.x}
+						}
+	  })
+};
+
+
+// Listen to the slider?
+d3.select("#slider").on("change", function(d){
+    selectedValue = this.value
+    yearSelectedData(selectedValue)
+    console.log("hi");
+    console.log(selectedValue);
+})
+
 const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("height", FRAME_HEIGHT)
     .attr("width", FRAME_WIDTH)
@@ -275,61 +300,100 @@ function showData() {
 
 document.getElementById("button-div").addEventListener("click", showData)
 
-
+// Read in the .csv file for Visual Encoding 3
 d3.csv("all_pie_slices.csv").then(function(data) {
 
-	const pieData = d3.nest()
-	    .key(function(d) { return d.Placeholder; })
-	    .rollup(function(v) { return d3.sum(v, function(d) { return d.Deforested_Forested_Percentages_2000; }); })
-	    .entries(data);
+	// Instantiate a radius for the pie chart
+	const radius = Math.min(FRAME_WIDTH, FRAME_HEIGHT) / 2 - 50;
 
-	// Create a FRAME3 element for the pie chart
+	// Instantiate a frame object for the viz
 	const FRAME3 = d3.select("#vis-enc-3")
-	    .append("svg")
+	  .append("svg")
 	    .attr("width", FRAME_WIDTH)
-        .attr("height", FRAME_HEIGHT)
-        .attr("class", "frame")
-        .append("g")
-        .attr("transform", "translate(" + FRAME_WIDTH/2 + "," + FRAME_HEIGHT/2 + ")");
+	    .attr("height", FRAME_HEIGHT)
+	  .append("g")
+	    .attr("transform", `translate(${FRAME_WIDTH/2}, ${FRAME_HEIGHT/2})`);
 
-    const pie = d3.pie()
-        .value(function(d) { return d.Deforested_Forested_Percentages_2000; });
+	// Represent the viz data as a dictionary
+	const pieData = {};
+	data.forEach(function(d) {
+		pieData[d.Area_Status] = d.Deforested_Forested_Percentages_2000;
+	});
 
-    const path = FRAME3.selectAll("path")
-        .data(pie(pieData))
-        .enter()
-        .append("path")
-        .attr("d", d3.arc()
-          .innerRadius(0)
-          .outerRadius(Math.min(FRAME_WIDTH, FRAME_HEIGHT) / 2)
-        );
+	// Create a colorway for the pie chart
+	const color = d3.scaleOrdinal()
+	  .range(["#ffed00", "#008026"])
 
+	// Create the actual pie chart
+	const pie = d3.pie()
+	  .value(function(d) {return d[1]})
+	const data_ready = pie(Object.entries(pieData))
+
+	// Generate the arcs for the slices
+	const arcGenerator = d3.arc()
+	  .innerRadius(0)
+	  .outerRadius(radius)
+
+	// Add the slices to the chart
+	FRAME3.selectAll('mySlices')
+	      .data(data_ready)
+	      .join('path')
+	      .attr('d', arcGenerator)
+	      .attr('fill', function(d){ return(color(d.data[0])) })
+	      .attr("stroke", "black")
+	      .style("stroke-width", "2px")
+	      .style("opacity", 0.7)
+
+	// Add a title to the chart
+	FRAME3.append("text")
+	      .attr("y", -220)
+	      .attr("text-anchor", "middle")
+	      .attr("font-size", "22px")
+	      .text("% Deforestation of Amazon in Year 2000");
+
+	// Add percentage labels to the slices
+	FRAME3.selectAll('mySlices')
+	      .data(data_ready)
+	      .join('text')
+	      .text(function(d){ return Math.round(d.data[1]) + "%"})
+	      .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`})
+	      .style("text-anchor", "middle")
+	      .style("font-size", 17)
+
+	// Create a data list for the legend
+	const columnData = data.map(function(d) {
+		return d.Area_Status;
+	});
+	
+	// Instantiate a colorway for the legend
+	const legendColor = d3.scaleOrdinal()
+	  .domain(columnData)
+	  .range(["#ffed00", "#008026"]);
+
+	// Add the squares to the legend
+	const size = 20
+	FRAME3.selectAll("mydots")
+	      .data(columnData)
+	      .enter()
+	      .append("rect")
+	        .attr("x", 160)
+	        .attr("y", function(d,i){ return 150 + i*(size+5)})
+	        .attr("width", size)
+	        .attr("height", size)
+	        .style("fill", function(d){ return legendColor(d)})
+
+	// Add labels to the squares
+	FRAME3.selectAll("mylabels")
+	      .data(columnData)
+	      .enter()
+	      .append("text")
+	        .attr("x", 160 + size*1.2)
+	        .attr("y", function(d,i){ return 150 + i*(size+5) + (size/2)})
+	        .style("fill", "black")
+	        .text(function(d){ return d})
+	        .attr("text-anchor", "left")
+	        .style("alignment-baseline", "middle")
+	        .style("font-size", 11)
 });
-
-
-// A function that update the chart when slider is moved?
-function yearSelectedData(year) {
-	d3.selectAll("points")
-	  .filter(function(d) {
-	  	console.log("hi2");
-	  		return d3.select(this).attr("class") == year;
-  	  })
-  	  .attr("class", function (d) {
-  	  					if(d.x == year){
-  	  						return "selected"
-						} else {
-				  			return (d) => {d.x}
-						}
-	  })
-};
-
-
-// Listen to the slider?
-d3.select("#slider").on("change", function(d){
-    selectedValue = this.value
-    yearSelectedData(selectedValue)
-    console.log("hi");
-    console.log(selectedValue);
-})
 
 

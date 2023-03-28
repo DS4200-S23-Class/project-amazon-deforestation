@@ -12,11 +12,6 @@ h1 {
     fill: rosybrown;
 }
 
-path {
-  fill: blue;
-  stroke: white;   
-}
-
 /* Add class styling the slider */
 #slider {
     width: 100%;
