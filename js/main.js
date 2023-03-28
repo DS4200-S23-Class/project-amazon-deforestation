@@ -17,7 +17,7 @@ for (let i = 2000; i < 2022; i++) {
 	ticks.innerHTML += '<option value="' + i + '" label="' + i + '" ></option>';
 }
 
-// Updates year for the slider
+// Updates year selected for the slider
 const value = document.querySelector("#year")
 const input = document.querySelector("#slider")
 value.textContent = input.value
@@ -185,6 +185,7 @@ d3.csv("def_data.csv").then((data) => {
         .style("stroke", "#CC0000")
         .style("stroke-width", "2");
 
+    // Add a slider
     const value = document.querySelector("#year")
 	const input = document.querySelector("#slider")
 	value.textContent = input.value
@@ -195,7 +196,7 @@ d3.csv("def_data.csv").then((data) => {
 	
 })
 
-// A function that update the chart when slider is moved?
+// Updates the chart when slider is moved?
 function yearSelectedData(year) {
 	d3.selectAll("points")
 	  .filter(function(d) {
@@ -211,13 +212,10 @@ function yearSelectedData(year) {
 	  })
 };
 
-
-// Listen to the slider?
+// Listens to slider and calls function above
 d3.select("#slider").on("change", function(d){
     selectedValue = this.value
-    yearSelectedData(selectedValue)
-    console.log("hi");
-    console.log(selectedValue);
+    yearSelectedData(selectedValue);
 })
 
 const FRAME2 = d3.select("#vis-enc-2").append("svg")
@@ -266,6 +264,15 @@ d3.csv("all_scatter_points.csv").then((data) => {
 					return "brown"
 				}})
 			 .attr("stroke-width", 2);
+
+	// add border around vis 2
+	let border = FRAME2.select("g")
+					.append("rect")
+  					.attr("height", FRAME_HEIGHT)
+  					.attr("width", FRAME_WIDTH)
+  					.style("stroke", "black")
+  					.style("stroke-width", 10)
+  					.style("fill", "none");
 
 })
 
