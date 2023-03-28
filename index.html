@@ -64,6 +64,17 @@
         <div id="vis-enc-1" align="center"></div>  
     </div>
 
+    <!-- Add slider for the visualizations -->
+    <div id="sliderContainer" onload="sliderTicks()">
+        <input type="range" id="slider"  min="2000" max="2021" step="1" list="ticks">
+        <datalist id="ticks"></datalist>
+        <p>
+            Year Selected: 
+            <output id="year"></output>
+        </p>
+
+    </div>
+
     <div>
         <!-- Add a title for Visual Encoding 2 -->
         <h3>Percent of Amazon Remaining</h3>
@@ -87,6 +98,14 @@
             <li><a href="https://gist.github.com/curran/966ac9f212a8ceb1ea153fd1ee9f72c4">Scatter Plot Axis Labels</a></li>
             <li><a href="https://stackoverflow.com/questions/61570060/inserting-title-in-line-chart-on-d3-js">Inserting title in line chart on d3.js</a></li>
             <li><a href="https://www.kaggle.com/datasets/diegosilvadefrana/brazilian-deforestation-from-2000-to-2021?resource=download&select=data.csv">Original Dataset (Kaggle)</a></li>
+            <li><a href="https://codepen.io/DougManuel/pen/avRyMg">Slider Inspiration</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range">Assistance For Slider Creation</a></li>
+            <li><a href="https://stackoverflow.com/questions/17929356/html-datalist-values-from-array-in-javascript">Shortening Slider Ticks Code</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML">Understanding InnerHTML</a></li>
+            <li><a href="https://css-tricks.com/can-get-pretty-far-making-slider-just-html-css/">Slider Snap</a></li>
+            <li><a href="https://stackoverflow.com/questions/11777598/font-size-relative-to-the-users-screen-resolution">Slider Tick Labels</a></li>
+            <li><a href="https://stackoverflow.com/questions/58701387/d3-js-select-node-element-based-on-attributes-value-using-selectall">Selecting a Point</a></li>
+
         </ul>
     </div>
 

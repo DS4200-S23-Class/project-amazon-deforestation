@@ -11,6 +11,21 @@ const MARGINS = {left: 50, right: 50, top: 50, bottom: 50};
 const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
 const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
 
+// Insert tick marks onto slider
+let ticks = document.getElementById("ticks");
+for (let i = 2000; i < 2022; i++) {
+	ticks.innerHTML += '<option value="' + i + '" label="' + i + '" ></option>';
+}
+
+// Updates year for the slider
+const value = document.querySelector("#year")
+const input = document.querySelector("#slider")
+value.textContent = input.value
+input.addEventListener("input", (event) => {
+	value.textContent = event.target.value
+})
+
+
 // Append the bars to the FRAME1 element
 const FRAME1 = d3.select("#vis-enc-1").append("svg")
     .attr("height", FRAME_HEIGHT)
@@ -61,7 +76,7 @@ d3.csv("avg_def_data.csv").then((data) => {
        // Position the tooltip and fill in information 
        TOOLTIP.html("Category: " + d.Year_Range + "<br>Value: " + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
                .style("left", event.x + "px")
-               .style("top", (event.y - 10) + "px"); // Place the tooltip
+               .style("top", (event.y + 300) + "px"); // Place the tooltip
     }
 
     function handleMouseleave(event, d) {
@@ -151,7 +166,9 @@ d3.csv("def_data.csv").then((data) => {
 	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
 	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
 	         .attr("r", 2)
-	         .attr("class", "point");
+	         // .attr("class", "point");
+	         .attr("class", (d) => {d.x})
+	         .attr("fill", "black");
 
 
 	let myLine = d3.line()
@@ -224,6 +241,7 @@ d3.csv("all_scatter_points.csv").then((data) => {
 					return "brown"
 				}})
 			 .attr("stroke-width", 2);
+
 })
 
 
@@ -289,19 +307,29 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 });
 
 
+// A function that update the chart when slider is moved?
+function yearSelectedData(year) {
+	d3.selectAll("points")
+	  .filter(function(d) {
+	  	console.log("hi2");
+	  		return d3.select(this).attr("class") == year;
+  	  })
+  	  .attr("class", function (d) {
+  	  					if(d.x == year){
+  	  						return "selected"
+						} else {
+				  			return (d) => {d.x}
+						}
+	  })
+};
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// Listen to the slider?
+d3.select("#slider").on("change", function(d){
+    selectedValue = this.value
+    yearSelectedData(selectedValue)
+    console.log("hi");
+    console.log(selectedValue);
+})
 
 
