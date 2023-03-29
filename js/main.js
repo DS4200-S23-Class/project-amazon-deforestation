@@ -164,19 +164,6 @@ d3.csv("def_data.csv").then((data) => {
 	    .domain([d3.min(data, function(d) { return d.Year; }), d3.max(data, function(d) { return d.Year; })])
 	    .range([0, VIS_WIDTH]);
 
-    let myPoints = FRAME1.append("g")
-  		.selectAll("points")  
-	      .data(data) // Passed from .then  
-	      .enter()       
-	      .append("circle")
-	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
-	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
-	         .attr("r", 2)
-	         .attr("class", "point");
-	         // .attr("class", (d) => {d.x})
-	         // .attr("fill", "black");
-
-
 	let myLine = d3.line()
         .x(function(d) { return xSCALE(d.Year) - MARGINS.left; }) 
         .y(function(d) { return ySCALE_REV(d.Proportion_Area_Deforested) - MARGINS.top; }) 
@@ -191,6 +178,18 @@ d3.csv("def_data.csv").then((data) => {
         // .style("fill", "none")
         // .style("stroke", "#CC0000")
         // .style("stroke-width", "2");
+
+    let myPoints = FRAME1.append("g")
+  		.selectAll("points")  
+	      .data(data) // Passed from .then  
+	      .enter()       
+	      .append("circle")
+	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
+	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
+	         .attr("r", 7)
+	         .attr("class", "point");
+	         // .attr("class", (d) => {d.x})
+	         // .attr("fill", "black");
 
     // Add a slider
     const value = document.querySelector("#year")
