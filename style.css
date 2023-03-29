@@ -14,6 +14,11 @@ h1 {
     stroke-width: 3px;
 }
 
+.point {
+    fill: green;
+    opacity: 1;
+}
+
 .axis-text {
     font-size: 10px;
 }

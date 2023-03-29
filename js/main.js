@@ -169,30 +169,30 @@ d3.csv("def_data.csv").then((data) => {
                        .append("div")
 					   .attr("class", "tooltip");
 
-    let myPoints = FRAME1.append("g")
-  		.selectAll("points")  
-	      .data(data) // Passed from .then  
-	      .enter()       
-	      .append("circle")
-	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
-	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
-	         .attr("r", 2)
-	         .attr("class", "point")
-	      .on("mouseover", handleMouseover) // Add event listeners
-          .on("mousemove", handleMousemove)
-          .on("mouseleave", handleMouseleave);;
+    // let myPoints = FRAME1.append("g")
+  	// 	.selectAll("points")  
+	//       .data(data) // Passed from .then  
+	//       .enter()       
+	//       .append("circle")
+	//       	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
+	//          .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
+	//          .attr("r", 2)
+	//          .attr("class", "point")
+	//       .on("mouseover", handleMouseover) // Add event listeners
+    //       .on("mousemove", handleMousemove)
+    //       .on("mouseleave", handleMouseleave);
 	         // .attr("class", (d) => {d.x})
 	         // .attr("fill", "black");
 
 	// Define event handler functions for tooltips
     function handleMouseover(event, d) {
-      
+    	console.log("MOUSE")
        // Make opaque on mouseover
        TOOLTIP.style("opacity", 1);
 
        // Highlight the bar (and outline for accessibility) on mouseover
-       d3.select(this).style("fill", "lightseagreen")
-      				  .style("stroke", "lightseagreen")
+       d3.select(this).style("fill", "lime")
+      				  .style("stroke", "lime")
       				  .style("stroke-width", "5px");
     }
 
@@ -210,10 +210,9 @@ d3.csv("def_data.csv").then((data) => {
    	   // return column fill and stroke to original
        TOOLTIP.style("opacity", 0);
 
-       d3.select(this).style("fill", "black")
-       				  .style("stroke", "black")
-       				  .style("stroke-width", "5px"); 
-    }
+       d3.select(this).style("fill", "green")
+       				  .style("stroke", "none");
+   }
 
 	let myLine = d3.line()
         .x(function(d) { return xSCALE(d.Year) - MARGINS.left; }) 
@@ -230,6 +229,20 @@ d3.csv("def_data.csv").then((data) => {
         // .style("stroke", "#CC0000")
         // .style("stroke-width", "2");
 
+    let myPointsYrs = FRAME1.append("g")
+  		.selectAll("points")  
+	      .data(data) // Passed from .then  
+	      .enter()       
+	      .append("circle")
+	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
+	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
+	         .attr("r", 7)
+	         .attr("class", "point")
+	      .on("mouseover", handleMouseover) // Add event listeners
+          .on("mousemove", handleMousemove)
+          .on("mouseleave", handleMouseleave);
+	         // .attr("class", (d) => {d.x})
+	         // .attr("fill", "black");
 
     // Add a slider
     const value = document.querySelector("#year")
@@ -294,9 +307,9 @@ d3.csv("all_scatter_points.csv").then((data) => {
 	      	 .attr("cx", (d) => { return (xSCALE(d.x) + MARGINS.left); })
 	         .attr("cy", (d) => { return (ySCALE(d.y) + MARGINS.top); })
 	         .attr("r", 10)
-	         .attr("class", "point")
+	         .attr("class", "pt")
 			 .attr("r", 8)
-	         .attr("class", "point")
+	         .attr("class", "pt")
 			 .attr("fill", function (d) {
 				if(d.x < 8 || (d.x == 8 && d.y < 17)){
 				  return "green"
