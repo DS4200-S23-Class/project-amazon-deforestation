@@ -164,6 +164,11 @@ d3.csv("def_data.csv").then((data) => {
 	    .domain([d3.min(data, function(d) { return d.Year; }), d3.max(data, function(d) { return d.Year; })])
 	    .range([0, VIS_WIDTH]);
 
+	// Create a tooltip for the points on the line
+    const TOOLTIP = d3.select("#vis-enc-1")
+                       .append("div")
+					   .attr("class", "tooltip");
+
     let myPoints = FRAME1.append("g")
   		.selectAll("points")  
 	      .data(data) // Passed from .then  
@@ -172,10 +177,43 @@ d3.csv("def_data.csv").then((data) => {
 	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
 	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
 	         .attr("r", 2)
-	         .attr("class", "point");
+	         .attr("class", "point")
+	      .on("mouseover", handleMouseover) // Add event listeners
+          .on("mousemove", handleMousemove)
+          .on("mouseleave", handleMouseleave);;
 	         // .attr("class", (d) => {d.x})
 	         // .attr("fill", "black");
 
+	// Define event handler functions for tooltips
+    function handleMouseover(event, d) {
+      
+       // Make opaque on mouseover
+       TOOLTIP.style("opacity", 1);
+
+       // Highlight the bar (and outline for accessibility) on mouseover
+       d3.select(this).style("fill", "lightseagreen")
+      				  .style("stroke", "lightseagreen")
+      				  .style("stroke-width", "5px");
+    }
+
+    function handleMousemove(event, d) {
+       TOOLTIP.style("opacity", 1);
+       // Position the tooltip and fill in information 
+       TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
+               .style("left", event.x + "px")
+               .style("top", (event.y + 600) + "px"); // Place the tooltip
+    }
+
+    function handleMouseleave(event, d) {
+      
+       // Make transparent on mouseleave
+   	   // return column fill and stroke to original
+       TOOLTIP.style("opacity", 0);
+
+       d3.select(this).style("fill", "black")
+       				  .style("stroke", "black")
+       				  .style("stroke-width", "5px"); 
+    }
 
 	let myLine = d3.line()
         .x(function(d) { return xSCALE(d.Year) - MARGINS.left; }) 
@@ -191,6 +229,7 @@ d3.csv("def_data.csv").then((data) => {
         // .style("fill", "none")
         // .style("stroke", "#CC0000")
         // .style("stroke-width", "2");
+
 
     // Add a slider
     const value = document.querySelector("#year")
