@@ -52,7 +52,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 	// Create a tooltip for the barplot
     const TOOLTIP = d3.select("#vis-enc-1")
                        .append("div")
-					   .attr("class", "tooltip");
+					   .attr("class", "pt-tooltip");
 
 	// Define event handler functions for tooltips
     function handleMouseover(event, d) {
@@ -85,13 +85,16 @@ d3.csv("avg_def_data.csv").then((data) => {
        			.style("left", MARGINS.left + "px")
        			.style("top", "1000px")
 
-       // d3.select(this).classList.add("border")
-       // 	if (element.classList.contains("border")) {
-       // 		element.classList.remove("border")
-       // 	}
-       // 	else{
-       // 		element.classList.add("border")
-       // 	}
+       	d3.selectAll(".bar").classed("selected", false)
+
+       	if (d3.select(this).classed("selected")) {
+       		d3.select(this).classed("selected", false)
+       	}
+       	else {
+       		d3.select(this).classed("selected", true)
+       	}
+
+
 	}
 
     function handleMouseleave(event, d) {
@@ -115,9 +118,9 @@ d3.csv("avg_def_data.csv").then((data) => {
         // .style("fill", "rosybrown")
         // .style("stroke", "saddlebrown")
         // .style("stroke-width", "3px")
-       .on("mouseover", handleMouseover) // Add event listeners
+       // .on("mouseover", handleMouseover) // Add event listeners
        // .on("mousemove", handleMousemove)
-       .on("mouseleave", handleMouseleave)
+       // .on("mouseleave", handleMouseleave)
        .on("click", handleMouseclick);
 
     // Create the x-axis
@@ -185,22 +188,8 @@ d3.csv("def_data.csv").then((data) => {
 	// Create a tooltip for the points on the line
     const TOOLTIP = d3.select("#vis-enc-1")
                        .append("div")
-					   .attr("class", "tooltip");
+					   .attr("class", "pt-tooltip");
 
-    // let myPoints = FRAME1.append("g")
-  	// 	.selectAll("points")  
-	//       .data(data) // Passed from .then  
-	//       .enter()       
-	//       .append("circle")
-	//       	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
-	//          .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
-	//          .attr("r", 2)
-	//          .attr("class", "point")
-	//       .on("mouseover", handleMouseover) // Add event listeners
-    //       .on("mousemove", handleMousemove)
-    //       .on("mouseleave", handleMouseleave);
-	         // .attr("class", (d) => {d.x})
-	         // .attr("fill", "black");
 
 	// Define event handler functions for tooltips
     function handleMouseover(event, d) {
@@ -246,7 +235,7 @@ d3.csv("def_data.csv").then((data) => {
         // .style("stroke", "#CC0000")
         // .style("stroke-width", "2");
 
-    let myPointsYrs = FRAME1.append("g")
+    let myPoints = FRAME1.append("g")
   		.selectAll("points")  
 	      .data(data) // Passed from .then  
 	      .enter()       
