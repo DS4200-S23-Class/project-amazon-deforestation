@@ -50,14 +50,14 @@ d3.csv("avg_def_data.csv").then((data) => {
 	// Create a tooltip for the barplot
     const TOOLTIP = d3.select("#vis-enc-1")
                        .append("div")
-					   .attr("class", "tooltip")
-					   .style("opacity", 0)
-					   .style("background-color", "lightgrey")
-					   .style("border", "solid")
-					   .style("border-width", "2px")
-					   .style("border-radius", "7px")
-					   .style("padding", "3px")
-					   .style("position", "absolute");
+					   .attr("class", "tooltip");
+					   // .style("opacity", 0)
+					   // .style("background-color", "lightgrey")
+					   // .style("border", "solid")
+					   // .style("border-width", "2px")
+					   // .style("border-radius", "7px")
+					   // .style("padding", "3px")
+					   // .style("position", "absolute");
 
 	// Define event handler functions for tooltips
     function handleMouseover(event, d) {
@@ -72,11 +72,11 @@ d3.csv("avg_def_data.csv").then((data) => {
     }
 
     function handleMousemove(event, d) {
-      
+       TOOLTIP.style("opacity", 1);
        // Position the tooltip and fill in information 
        TOOLTIP.html("Category: " + d.Year_Range + "<br>Value: " + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
                .style("left", event.x + "px")
-               .style("top", (event.y + 300) + "px"); // Place the tooltip
+               .style("top", (event.y + 600) + "px"); // Place the tooltip
     }
 
     function handleMouseleave(event, d) {
@@ -98,8 +98,9 @@ d3.csv("avg_def_data.csv").then((data) => {
         .attr("width", function(d) { return xSCALE(d.Range_Maximums) - xSCALE(d.Range_Minimums); })
         .attr("height", function(d) { return VIS_HEIGHT - ySCALE_REV(d.Average_Proportion_Area_Deforested); })
         .attr("class", "bar")
-        .style("fill", "rosybrown")
-        .style("stroke", "saddlebrown")
+        // .style("fill", "rosybrown")
+        // .style("stroke", "saddlebrown")
+        // .style("stroke-width", "3px")
        .on("mouseover", handleMouseover) // Add event listeners
        .on("mousemove", handleMousemove)
        .on("mouseleave", handleMouseleave);
@@ -110,13 +111,15 @@ d3.csv("avg_def_data.csv").then((data) => {
 		   "," + (VIS_HEIGHT + MARGINS.bottom) + ")")
 	    .call(d3.axisBottom(xSCALE))
 	    .selectAll("text")
-		  .attr("font-size", "10px");
+		  // .attr("font-size", "10px")
+	    .attr("class", "axis-text");
 
     // Provide a label for the x-axis
     FRAME1.append("text")
         .attr("x", 245)
         .attr("y", 490)
-        .attr("text-anchor", "middle")
+        // .attr("text-anchor", "middle")
+        .attr("class", "xlab")
         .text("Years");
 
 	// Create the y-axis
@@ -124,22 +127,25 @@ d3.csv("avg_def_data.csv").then((data) => {
 	    .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")") 
 	    .call(d3.axisLeft(ySCALE_REV))
 	    .selectAll("text")
-		  .attr("font-size", "10px");
+		  // .attr("font-size", "10px")
+	    .attr("class", "axis-text");
 
     // Provide a label for the y-axis
     FRAME1.append("text")
         .attr("transform", "rotate(-90)")
         .attr("x", -260)
         .attr("y", 12)
-        .attr("text-anchor", "middle")
+        // .attr("text-anchor", "middle")
+        .attr("class", "xlab")
         .text("Proportion of Area Deforested");
 
     // Provide a title for the graph
 	FRAME1.append("text")
         .attr("x", 255)
         .attr("y", 20)
-        .attr("text-anchor", "middle")
-        .style("font-size", "22px")
+        // .attr("text-anchor", "middle")
+        // .style("font-size", "22px")
+        .attr("class", "title")
         .text("Deforestation in the Amazon");
 
 });
@@ -181,9 +187,10 @@ d3.csv("def_data.csv").then((data) => {
         .attr("class", "line") 
         .attr("transform", "translate(" + 100 + "," + 100 + ")")
         .attr("d", myLine)
-        .style("fill", "none")
-        .style("stroke", "#CC0000")
-        .style("stroke-width", "2");
+        .attr("class", "line");
+        // .style("fill", "none")
+        // .style("stroke", "#CC0000")
+        // .style("stroke-width", "2");
 
     // Add a slider
     const value = document.querySelector("#year")
@@ -270,9 +277,10 @@ d3.csv("all_scatter_points.csv").then((data) => {
 					.append("rect")
   					.attr("height", FRAME_HEIGHT)
   					.attr("width", FRAME_WIDTH)
-  					.style("stroke", "black")
-  					.style("stroke-width", 10)
-  					.style("fill", "none");
+  					.attr("class", "border");
+  					// .style("stroke", "black")
+  					// .style("stroke-width", 10)
+  					// .style("fill", "none");
 
 })
 
@@ -347,15 +355,17 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	      .join('path')
 	      .attr('d', arcGenerator)
 	      .attr('fill', function(d){ return(color(d.data[0])) })
-	      .attr("stroke", "black")
-	      .style("stroke-width", "2px")
-	      .style("opacity", 0.7)
+	      // .attr("stroke", "black")
+	      // .style("stroke-width", "2px")
+	      // .style("opacity", 0.7)
+	      .attr("class", "slices");
 
 	// Add a title to the chart
 	FRAME3.append("text")
 	      .attr("y", -220)
-	      .attr("text-anchor", "middle")
-	      .attr("font-size", "22px")
+	      // .attr("text-anchor", "middle")
+	      // .attr("font-size", "22px")
+	      .attr("class", "title")
 	      .text("% Deforestation of Amazon in Year 2000");
 
 	// Add percentage labels to the slices
@@ -364,8 +374,9 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	      .join('text')
 	      .text(function(d){ return Math.round(d.data[1]) + "%"})
 	      .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`})
-	      .style("text-anchor", "middle")
-	      .style("font-size", 17)
+	      // .style("text-anchor", "middle")
+	      // .style("font-size", 17)
+	      .attr("class", "slice-labs")
 
 	// Create a data list for the legend
 	const columnData = data.map(function(d) {
@@ -398,9 +409,10 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	        .attr("y", function(d,i){ return 150 + i*(size+5) + (size/2)})
 	        .style("fill", "black")
 	        .text(function(d){ return d})
-	        .attr("text-anchor", "left")
+	        // .attr("text-anchor", "left")
 	        .style("alignment-baseline", "middle")
-	        .style("font-size", 11)
+	        // .style("font-size", 11)
+	        .attr("class", "sq-labs")
 });
 
 

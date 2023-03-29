@@ -10,6 +10,27 @@ h1 {
 /* Add class styling the bars of the barplot */
 .bar {
     fill: rosybrown;
+    stroke: saddlebrown;
+    stroke-width: 3px;
+}
+
+.axis-text {
+    font-size: 10px;
+}
+
+.xlab {
+    text-anchor: middle;
+}
+
+.title {
+    text-anchor: middle;
+    font-size: 22px;
+}
+
+.border {
+    stroke: black;
+    stroke-width: 10px;
+    fill: none;
 }
 
 /* Add class styling the slider */
@@ -44,3 +65,55 @@ input[type="range"] {
 /*.selected{
     fill:yellow;
 }*/
+
+.tooltip {
+    opacity: 0;
+    background-color: lightgrey;
+    border: solid;
+    border-width: 2px;
+    border-radius: 7px;
+    padding: 3px;
+    position: absolute;
+}
+
+.line {
+    fill: none;
+    stroke: black;
+    stroke-width: 2px;
+}
+
+/* Visualization 3-Specific Classes */
+
+.slices {
+    stroke: black;
+    stroke-width: 2px;
+    opacity: 0.7;
+}
+
+.slice-labs {
+    text-anchor: middle;
+    font-size: 17px;
+}
+
+.sq-labs {
+    text-anchor: left;
+    text-align: center;
+    font-size: 11px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
