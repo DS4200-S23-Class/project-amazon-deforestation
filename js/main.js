@@ -26,6 +26,8 @@ input.addEventListener("input", (event) => {
 })
 
 
+/* =====================  VISUALIZATION 1: BAR CHART  ===========================*/
+
 // Append the bars to the FRAME1 element
 const FRAME1 = d3.select("#vis-enc-1").append("svg")
     .attr("height", FRAME_HEIGHT)
@@ -51,19 +53,12 @@ d3.csv("avg_def_data.csv").then((data) => {
     const TOOLTIP = d3.select("#vis-enc-1")
                        .append("div")
 					   .attr("class", "tooltip");
-					   // .style("opacity", 0)
-					   // .style("background-color", "lightgrey")
-					   // .style("border", "solid")
-					   // .style("border-width", "2px")
-					   // .style("border-radius", "7px")
-					   // .style("padding", "3px")
-					   // .style("position", "absolute");
 
 	// Define event handler functions for tooltips
     function handleMouseover(event, d) {
       
        // Make opaque on mouseover
-       TOOLTIP.style("opacity", 1);
+       // TOOLTIP.style("opacity", 1);
 
        // Highlight the bar (and outline for accessibility) on mouseover
        d3.select(this).style("fill", "lightseagreen")
@@ -71,19 +66,38 @@ d3.csv("avg_def_data.csv").then((data) => {
       				  .style("stroke-width", "3px");
     }
 
-    function handleMousemove(event, d) {
-       TOOLTIP.style("opacity", 1);
-       // Position the tooltip and fill in information 
-       TOOLTIP.html("Category: " + d.Year_Range + "<br>Value: " + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
-               .style("left", event.x + "px")
-               .style("top", (event.y + 600) + "px"); // Place the tooltip
-    }
+    // function handleMousemove(event, d) {
+    //    TOOLTIP.style("opacity", 1);
+    //    // Position the tooltip and fill in information 
+    //    TOOLTIP.html("Category: " + d.Year_Range + "<br>Value: " + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
+    //            .style("left", event.x + "px")
+    //            .style("top", (event.y + 600) + "px"); // Place the tooltip
+    // }
+
+    function handleMouseclick(event, d) {
+    	TOOLTIP.style("opacity", 1);
+
+    	// d3.select(this).attr("stroke", "lime");
+
+		console.log(d3.select(this) + "clicked");
+
+       	TOOLTIP.html("Year Range: <br>" + d.Year_Range + "<br>Average Proportion Area Deforested: <br>" + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
+       			.style("left", MARGINS.left + "px")
+       			.style("top", "1000px")
+
+       // d3.select(this).classList.add("border")
+       // 	if (element.classList.contains("border")) {
+       // 		element.classList.remove("border")
+       // 	}
+       // 	else{
+       // 		element.classList.add("border")
+       // 	}
+	}
 
     function handleMouseleave(event, d) {
       
        // Make transparent on mouseleave
    	   // return column fill and stroke to original
-       TOOLTIP.style("opacity", 0);
        d3.select(this).style("fill", "rosybrown")
       				  .style("stroke", "saddlebrown"); 
     }
@@ -102,8 +116,9 @@ d3.csv("avg_def_data.csv").then((data) => {
         // .style("stroke", "saddlebrown")
         // .style("stroke-width", "3px")
        .on("mouseover", handleMouseover) // Add event listeners
-       .on("mousemove", handleMousemove)
-       .on("mouseleave", handleMouseleave);
+       // .on("mousemove", handleMousemove)
+       .on("mouseleave", handleMouseleave)
+       .on("click", handleMouseclick);
 
     // Create the x-axis
 	FRAME1.append("g")
@@ -150,6 +165,9 @@ d3.csv("avg_def_data.csv").then((data) => {
 
 });
 
+
+/* =====================  VISUALIZATION 1.2: LINE PLOT  ===========================*/
+
 d3.csv("def_data.csv").then((data) => {
 
 	// Print the data
@@ -186,7 +204,6 @@ d3.csv("def_data.csv").then((data) => {
 
 	// Define event handler functions for tooltips
     function handleMouseover(event, d) {
-    	console.log("MOUSE")
        // Make opaque on mouseover
        TOOLTIP.style("opacity", 1);
 
@@ -366,6 +383,9 @@ function showData() {
 }
 
 document.getElementById("button-div").addEventListener("click", showData)
+
+/* =====================  VISUALIZATION 3: PIE CHART  ===========================*/
+
 
 // Read in the .csv file for Visual Encoding 3
 d3.csv("all_pie_slices.csv").then(function(data) {
