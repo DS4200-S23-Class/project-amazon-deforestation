@@ -310,8 +310,8 @@ d3.csv("all_scatter_points.csv").then((data) => {
 	      .data(data) // Passed from .then  
 	      .enter()       
 	      .append("circle")
-	      	 .attr("cx", (d) => { return (xSCALE(d.x) + MARGINS.left); })
-	         .attr("cy", (d) => { return (ySCALE(d.y) + MARGINS.top); })
+	      	 .attr("cx", (d) => { return (xSCALE(d.x) + 25); })
+	         .attr("cy", (d) => { return (ySCALE(d.y) + MARGINS.top + 10); })
 	         .attr("r", 10)
 	         .attr("class", "pt")
 			 .attr("r", 8)
