@@ -128,6 +128,27 @@ input[type="range"] {
 }
 
 
+/* Creates a flex container to make 2 columns */
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* Adjusts the left column */
+.flex-left {
+    width: 50%;
+    flex-wrap: flex;
+    flex-direction: column;
+}
+
+/* Adjusts the right column */
+.flex-right {
+    flex-direction: column;
+    width: 50%;
+    flex-wrap: wrap;
+}
+
 
 
 
