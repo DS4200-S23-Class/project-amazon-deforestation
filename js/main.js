@@ -243,6 +243,8 @@ d3.csv("def_data.csv").then((data) => {
 	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
 	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
 	         .attr("r", 7)
+	         .attr("fill", "green")
+	         .attr("opacity", "1")
 	         .attr("class", "vis1-point")
 	         .attr("id", (d) => { return d.Year; })
 	      .on("mouseover", handleMouseover) // Add event listeners
@@ -276,7 +278,7 @@ function yearSelectedData(year) {
 d3.select("#slider").on("change", function(d){
 									    selectedValue = this.value
 									    console.log(selectedValue);
-									    d3.selectAll(".vis1-point").attr("fill","black");
+									    d3.selectAll(".vis1-point").attr("fill","green").attr("opacity", "1");
 									    yearSelectedData(selectedValue);
 })
 
