@@ -243,11 +243,11 @@ d3.csv("def_data.csv").then((data) => {
 	      	 .attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
 	         .attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
 	         .attr("r", 7)
-	         .attr("class", "point")
+	         .attr("class", "vis1-point")
+	         .attr("id", (d) => { return d.Year; })
 	      .on("mouseover", handleMouseover) // Add event listeners
           .on("mousemove", handleMousemove)
           .on("mouseleave", handleMouseleave);
-	         // .attr("class", (d) => {d.x})
 	         // .attr("fill", "black");
 
     // Add a slider
@@ -261,27 +261,24 @@ d3.csv("def_data.csv").then((data) => {
 	
 })
 
-// // Updates the chart when slider is moved?
-// function yearSelectedData(year) {
-// 	d3.selectAll("points")
-// 	  .filter(function(d) {
-// 	  	console.log("hi2");
-// 	  		return d3.select(this).attr("class") == year;
-//   	  })
-//   	  .attr("class", function (d) {
-//   	  					if(d.x == year){
-//   	  						return "selected"
-// 						} else {
-// 				  			return (d) => {d.x}
-// 						}
-// 	  })
-// };
 
-// // Listens to slider and calls function above
-// d3.select("#slider").on("change", function(d){
-//     selectedValue = this.value
-//     yearSelectedData(selectedValue);
-// })
+// reset everything to black first onsliderchange
+
+// Updates the chart when slider is moved?
+function yearSelectedData(year) {
+	console.log("entered yearSelectedData()");
+	document.getElementById(year).setAttribute("fill","yellow");
+	 
+	console.log("end of yearSelectedData()");
+};
+
+// Listens to slider and calls function above
+d3.select("#slider").on("change", function(d){
+									    selectedValue = this.value
+									    console.log(selectedValue);
+									    d3.selectAll(".vis1-point").attr("fill","black");
+									    yearSelectedData(selectedValue);
+})
 
 const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("height", FRAME_HEIGHT)
