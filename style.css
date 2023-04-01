@@ -9,11 +9,11 @@ h1 {
 
 /* VISUALIZATION 1.2 SPECIFIC STYLING [BARPLOT] */
 /* Add class styling the bars of the barplot */
-.bar {
+/*.bar {
     fill: rosybrown;
     stroke: saddlebrown;
     stroke-width: 3px;
-}
+}*/
 
 .pt-tooltip {
     opacity: 0;

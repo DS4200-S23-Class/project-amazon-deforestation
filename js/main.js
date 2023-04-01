@@ -105,6 +105,27 @@ d3.csv("avg_def_data.csv").then((data) => {
       				  .style("stroke", "saddlebrown"); 
     }
 
+   
+    // Function that provides each bar with a unique ID for the slider
+    function scaleID(year) {
+		if (2000 <= year && year < 2004) {
+			return "vis1-2000";
+		} else if (2003 < year && year < 2007) {
+			return "vis1-2003";
+		} else if (2006 < year && year < 2010) {
+			return "vis1-2006";
+		} else if (2009 < year && year < 2013) {
+			return "vis1-2009";
+		} else if (2012 < year && year < 2016) {
+			return "vis1-2012";
+		} else if (2015 < year && year < 2019) {
+			return "vis1-2015";
+		} else {
+			return "vis1-2018";
+		} 
+	};
+
+
     // Create the bars and add event listeners
     FRAME1.selectAll("bar")
       .data(data)
@@ -115,9 +136,10 @@ d3.csv("avg_def_data.csv").then((data) => {
         .attr("width", function(d) { return xSCALE(d.Range_Maximums) - xSCALE(d.Range_Minimums); })
         .attr("height", function(d) { return VIS_HEIGHT - ySCALE_REV(d.Average_Proportion_Area_Deforested); })
         .attr("class", "bar")
-        // .style("fill", "rosybrown")
-        // .style("stroke", "saddlebrown")
-        // .style("stroke-width", "3px")
+        .attr("id", function(d) { return scaleID(d.Range_Minimums);})
+        .attr("fill", "rosybrown")
+        .attr("stroke", "saddlebrown")
+        .attr("stroke-width", "3px")
        // .on("mouseover", handleMouseover) // Add event listeners
        // .on("mousemove", handleMousemove)
        // .on("mouseleave", handleMouseleave)
@@ -252,7 +274,7 @@ d3.csv("def_data.csv").then((data) => {
           .on("mouseleave", handleMouseleave);
 	         // .attr("fill", "black");
 
-    // Add a slider
+    // Add a slider to webpage
     const value = document.querySelector("#year")
 	const input = document.querySelector("#slider")
 	value.textContent = input.value
@@ -263,14 +285,35 @@ d3.csv("def_data.csv").then((data) => {
 	
 })
 
+// Scales the year so that the respective bar is selected
+function scaleYear(year) {
+		if (2000 <= year && year < 2004) {
+			return 2000;
+		} else if (2004 <= year && year < 2007) {
+			return 2003;
+		} else if (2007 <= year && year < 2010) {
+			return 2006;
+		} else if (2010 <= year && year < 2013) {
+			return 2009;
+		} else if (2013 <= year && year < 2016) {
+			return 2012;
+		} else if (2016 <= year && year < 2019) {
+			return 2015;
+		} else {
+			return 2018;
+		} 
+	};
 
-// reset everything to black first onsliderchange
+// }
 
-// Updates the chart when slider is moved?
+// Updates visualizations when slider is used
 function yearSelectedData(year) {
 	console.log("entered yearSelectedData()");
+	console.log(scaleYear(year));
+	console.log(document.getElementById("vis1-"+scaleYear(year)));
 	document.getElementById(year).setAttribute("fill","yellow");
-	 
+	document.getElementById("vis1-"+scaleYear(year)).setAttribute("fill","yellow");
+	
 	console.log("end of yearSelectedData()");
 };
 
@@ -279,6 +322,7 @@ d3.select("#slider").on("change", function(d){
 									    selectedValue = this.value
 									    console.log(selectedValue);
 									    d3.selectAll(".vis1-point").attr("fill","green").attr("opacity", "1");
+									    d3.selectAll(".bar").attr("fill","rosybrown");
 									    yearSelectedData(selectedValue);
 })
 
