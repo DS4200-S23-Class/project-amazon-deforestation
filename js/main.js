@@ -110,15 +110,15 @@ d3.csv("avg_def_data.csv").then((data) => {
     function scaleID(year) {
 		if (2000 <= year && year < 2004) {
 			return "vis1-2000";
-		} else if (2003 < year && year < 2007) {
+		} else if (2003 <= year && year < 2007) {
 			return "vis1-2003";
-		} else if (2006 < year && year < 2010) {
+		} else if (2006 <= year && year < 2010) {
 			return "vis1-2006";
-		} else if (2009 < year && year < 2013) {
+		} else if (2009 <= year && year < 2013) {
 			return "vis1-2009";
-		} else if (2012 < year && year < 2016) {
+		} else if (2012 <= year && year < 2016) {
 			return "vis1-2012";
-		} else if (2015 < year && year < 2019) {
+		} else if (2015 <= year && year < 2019) {
 			return "vis1-2015";
 		} else {
 			return "vis1-2018";
@@ -136,7 +136,7 @@ d3.csv("avg_def_data.csv").then((data) => {
         .attr("width", function(d) { return xSCALE(d.Range_Maximums) - xSCALE(d.Range_Minimums); })
         .attr("height", function(d) { return VIS_HEIGHT - ySCALE_REV(d.Average_Proportion_Area_Deforested); })
         .attr("class", "bar")
-        .attr("id", function(d) { return scaleID(d.Range_Minimums);})
+        .attr("id", function(d) { return "vis1-"+ (d.Range_Minimums);})
         .attr("fill", "rosybrown")
         .attr("stroke", "saddlebrown")
         .attr("stroke-width", "3px")
