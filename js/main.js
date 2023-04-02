@@ -434,7 +434,7 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	    .attr("transform", `translate(${FRAME_WIDTH/2}, ${FRAME_HEIGHT/2})`);
 
 	// Represent the viz data as a dictionary
-	const pieData = {};
+	let pieData = {};
 	data.forEach(function(d) {
 		pieData[d.Area_Status] = d.Deforested_Forested_Percentages_2000;
 	});
@@ -444,9 +444,11 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	  .range(["#ffed00", "#008026"])
 
 	// Create the actual pie chart
-	const pie = d3.pie()
+	let pie = d3.pie()
 	  .value(function(d) {return d[1]})
-	const data_ready = pie(Object.entries(pieData))
+	let data_ready = pie(Object.entries(pieData))
+
+	console.log(data_ready)
 
 	// Generate the arcs for the slices
 	const arcGenerator = d3.arc()
@@ -454,15 +456,36 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	  .outerRadius(radius)
 
 	// Add the slices to the chart
-	FRAME3.selectAll('mySlices')
-	      .data(data_ready)
-	      .join('path')
-	      .attr('d', arcGenerator)
-	      .attr('fill', function(d){ return(color(d.data[0])) })
-	      // .attr("stroke", "black")
-	      // .style("stroke-width", "2px")
-	      // .style("opacity", 0.7)
-	      .attr("class", "slices");
+	let slices = FRAME3.selectAll('mySlices')
+	                   .data(data_ready)
+	                   .join('path')
+	                   .attr('d', arcGenerator)
+	                   .attr('fill', function(d){ return(color(d.data[0])) })
+	                   // .attr("stroke", "black")
+	                   // .style("stroke-width", "2px")
+	                   // .style("opacity", 0.7)
+	                   .attr("class", "slices");
+
+	let slider = d3.select("#slider")
+	  .on("input", function() {
+	  	let value = +this.value;
+	  	updatePieChart(value);
+	  });
+
+	function updatePieChart(year) {
+		let pieData = {};
+		data.forEach(function(d) {
+			pieData[d.Area_Status] = d.Deforested_Forested_Percentages_+year;
+	    });
+
+		let pie = d3.pie()
+	  	  .value(function(d) {return d[1]})
+		let data_ready = pie(Object.entries(pieData))
+
+		let slices = slices.data(data_ready)
+		
+		slices.attr("d", arcGenerator); 
+	}
 
 	// Add a title to the chart
 	FRAME3.append("text")
