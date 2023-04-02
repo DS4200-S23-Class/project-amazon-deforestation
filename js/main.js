@@ -475,16 +475,26 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	function updatePieChart(year) {
 		let pieData = {};
 		data.forEach(function(d) {
-			pieData[d.Area_Status] = d.Deforested_Forested_Percentages_+year;
+			pieData[d.Area_Status] = d['Deforested_Forested_Percentages_' + year];
 	    });
 
 		let pie = d3.pie()
 	  	  .value(function(d) {return d[1]})
 		let data_ready = pie(Object.entries(pieData))
 
-		let slices = slices.data(data_ready)
+		let slices = FRAME3.selectAll('.slices')
+		  .data(data_ready);
 		
 		slices.attr("d", arcGenerator); 
+
+		// Update percentage labels for the slices
+		FRAME3.selectAll('.slice-labs')
+		  .data(data_ready)
+		  .text(function(d){ return Math.round(d.data[1]) + "%"});
+
+		// Update title of the chart
+		FRAME3.select('.title')
+		  .text(`% Deforestation of Amazon in Year ${year}`);
 	}
 
 	// Add a title to the chart
