@@ -530,7 +530,7 @@ d3.csv("all_pie_slices.csv").then(function(data) {
    	   // return column fill and stroke to original
        TOOLTIP.style("opacity", 0);
 
-       d3.select(this).style('stroke', "none");
+       d3.select(this).style('stroke', "black").style("stroke-width", "2px");
    }
 });
 
