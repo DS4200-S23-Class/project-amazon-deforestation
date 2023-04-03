@@ -509,7 +509,7 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	FRAME3.selectAll('mySlices')
 	      .data(data_ready)
 	      .join('text')
-	      .text(function(d){ return Math.round(d.data[1]) + "%"})
+	      .text(function(d){ return Number(Math.round(d.data[1] + 'e2') + 'e-2').toFixed(1) + "%"})
 	      .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`})
 	      // .style("text-anchor", "middle")
 	      // .style("font-size", 17)
