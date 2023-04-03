@@ -11,20 +11,6 @@ const MARGINS = {left: 50, right: 50, top: 50, bottom: 50};
 const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
 const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
 
-// Insert tick marks onto slider
-let ticks = document.getElementById("ticks");
-for (let i = 2000; i < 2022; i++) {
-	ticks.innerHTML += '<option value="' + i + '" label="' + i + '" ></option>';
-}
-
-// Updates year selected for the slider
-const value = document.querySelector("#year")
-const input = document.querySelector("#slider")
-value.textContent = input.value
-input.addEventListener("input", (event) => {
-	value.textContent = event.target.value
-})
-
 
 /* =====================  VISUALIZATION 1: BAR CHART  ===========================*/
 
@@ -105,25 +91,6 @@ d3.csv("avg_def_data.csv").then((data) => {
       				  .style("stroke", "saddlebrown"); 
     }
 
-   
-    // Function that provides each bar with a unique ID for the slider
-    function scaleID(year) {
-		if (2000 <= year && year < 2004) {
-			return "vis1-2000";
-		} else if (2003 <= year && year < 2007) {
-			return "vis1-2003";
-		} else if (2006 <= year && year < 2010) {
-			return "vis1-2006";
-		} else if (2009 <= year && year < 2013) {
-			return "vis1-2009";
-		} else if (2012 <= year && year < 2016) {
-			return "vis1-2012";
-		} else if (2015 <= year && year < 2019) {
-			return "vis1-2015";
-		} else {
-			return "vis1-2018";
-		} 
-	};
 
 
     // Create the bars and add event listeners
@@ -274,57 +241,9 @@ d3.csv("def_data.csv").then((data) => {
           .on("mouseleave", handleMouseleave);
 	         // .attr("fill", "black");
 
-    // Add a slider to webpage
-    const value = document.querySelector("#year")
-	const input = document.querySelector("#slider")
-	value.textContent = input.value
-	input.addEventListener("input", (event) => {
-  		value.textContent = event.target.value
-	})
-
 	
 })
 
-// Scales the year so that the respective bar is selected
-function scaleYear(year) {
-		if (2000 <= year && year < 2004) {
-			return 2000;
-		} else if (2004 <= year && year < 2007) {
-			return 2003;
-		} else if (2007 <= year && year < 2010) {
-			return 2006;
-		} else if (2010 <= year && year < 2013) {
-			return 2009;
-		} else if (2013 <= year && year < 2016) {
-			return 2012;
-		} else if (2016 <= year && year < 2019) {
-			return 2015;
-		} else {
-			return 2018;
-		} 
-	};
-
-// }
-
-// Updates visualizations when slider is used
-function yearSelectedData(year) {
-	console.log("entered yearSelectedData()");
-	console.log(scaleYear(year));
-	console.log(document.getElementById("vis1-"+scaleYear(year)));
-	document.getElementById(year).setAttribute("fill","yellow");
-	document.getElementById("vis1-"+scaleYear(year)).setAttribute("fill","yellow");
-	
-	console.log("end of yearSelectedData()");
-};
-
-// Listens to slider and calls function above
-d3.select("#slider").on("change", function(d){
-									    selectedValue = this.value
-									    console.log(selectedValue);
-									    d3.selectAll(".vis1-point").attr("fill","green").attr("opacity", "1");
-									    d3.selectAll(".bar").attr("fill","rosybrown");
-									    yearSelectedData(selectedValue);
-})
 
 const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("height", FRAME_HEIGHT)
@@ -464,7 +383,10 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	                   // .attr("stroke", "black")
 	                   // .style("stroke-width", "2px")
 	                   // .style("opacity", 0.7)
-	                   .attr("class", "slices");
+	                   .attr("class", "slices")
+			        .on("mouseover", handleMouseover)
+			        .on("mousemove", handleMousemove)
+			        .on("mouseleave", handleMouseleave);
 
 	let slider = d3.select("#slider")
 	  .on("input", function() {
@@ -550,6 +472,42 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	        .style("alignment-baseline", "middle")
 	        // .style("font-size", 11)
 	        .attr("class", "sq-labs")
+
+	// Create a tooltip for the points on the line
+    const TOOLTIP = d3.select("#vis-enc-3")
+                       .append("div")
+					   .attr("class", "pt-tooltip");
+
+
+	// Define event handler functions for tooltips
+    function handleMouseover(event, d) {
+       // Make opaque on mouseover
+       TOOLTIP.style("opacity", 1);
+
+       // Highlight the bar (and outline for accessibility) on mouseover
+       d3.select(this).style("stroke", "lime")
+      				  .style("stroke-width", "5px");
+    }
+
+    function handleMousemove(event, d) {
+       TOOLTIP.style("opacity", 1);
+       // Position the tooltip and fill in information 
+       TOOLTIP.html("Percent of Amazon: " + percentage(d))
+       			.style("right", "170px");
+    }
+
+    function percentage(d){
+    	return Number(Math.round(d.data[1] + 'e2') + 'e-2').toFixed(1) + "%";
+    }
+
+    function handleMouseleave(event, d) {
+      
+       // Make transparent on mouseleave
+   	   // return column fill and stroke to original
+       TOOLTIP.style("opacity", 0);
+
+       d3.select(this).style('stroke', "none");
+   }
 });
 
 
