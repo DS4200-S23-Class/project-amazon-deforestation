@@ -1,6 +1,6 @@
 // JS File for Amazon Deforestation Project
 // Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
-// Last Modified: 03.20.2023
+// Last Modified: 04.03.2023
 
 
 // Instantiate visualization dimensions/limitations
@@ -199,6 +199,29 @@ d3.csv("def_data.csv").then((data) => {
                .style("top", (event.y + 600) + "px"); // Place the tooltip
     }
 
+    function handleMouseclick(event, d) {
+    	TOOLTIP.style("opacity", 1);
+
+    	// d3.select(this).attr("stroke", "lime");
+
+		console.log(d3.select(this) + "clicked");
+
+       	TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
+       			.style("right", MARGINS.right + "px")
+       			.style("top", "1000px")
+
+       	d3.selectAll(".vis1-point").classed("selected", false)
+
+       	if (d3.select(this).classed("selected")) {
+       		d3.select(this).classed("selected", false)
+       	}
+       	else {
+       		d3.select(this).classed("selected", true)
+       	}
+
+
+	}
+
     function handleMouseleave(event, d) {
       
        // Make transparent on mouseleave
@@ -236,9 +259,10 @@ d3.csv("def_data.csv").then((data) => {
 	         .attr("opacity", "1")
 	         .attr("class", "vis1-point")
 	         .attr("id", (d) => { return d.Year; })
-	      .on("mouseover", handleMouseover) // Add event listeners
-          .on("mousemove", handleMousemove)
-          .on("mouseleave", handleMouseleave);
+	      // .on("mouseover", handleMouseover) // Add event listeners
+          // .on("mousemove", handleMousemove)
+          // .on("mouseleave", handleMouseleave)
+	         .on("click", handleMouseclick);
 	         // .attr("fill", "black");
 
 	
