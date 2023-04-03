@@ -490,7 +490,7 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 		// Update percentage labels for the slices
 		FRAME3.selectAll('.slice-labs')
 		  .data(data_ready)
-		  .text(function(d){ return Math.round(d.data[1]) + "%"});
+		  .text(function(d){ return Number(Math.round(d.data[1] + 'e2') + 'e-2').toFixed(1) + "%"});
 
 		// Update title of the chart
 		FRAME3.select('.title')
