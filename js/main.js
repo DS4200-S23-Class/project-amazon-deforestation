@@ -290,18 +290,16 @@ d3.csv("all_scatter_points.csv").then((data) => {
 				.attr("r", 8)
 				.attr("class", "pt")
 				.attr("fill", function (d) {
-					if(d.x < xcoord || (d.x == xcoord && d.y <= ycoord)){
+					if((d.x-1) < xcoord || ((d.x-1) == xcoord && d.y <= ycoord)){
 						return "green"
 					} else {
 						return "white"
 					}})
-				.attr("stroke", function (d) {
-					if(d.x < xcoord || (d.x == xcoord && d.y <= ycoord)){
-						return "darkgreen"
-					} else {
-						return "brown"
-					}})
-				.attr("stroke-width", 2);
+				.attr("stroke", "brown")
+				.attr("stroke-width", 2)
+				.on("mouseover", handleMouseover)
+			    .on("mousemove", handleMousemove)
+			    .on("mouseleave", handleMouseleave);
 
 		// add border around vis 2
 		let border = FRAME2.select("g")
@@ -309,6 +307,42 @@ d3.csv("all_scatter_points.csv").then((data) => {
 						.attr("height", FRAME_HEIGHT)
 						.attr("width", FRAME_WIDTH)
 						.attr("class", "border");
+
+		// Create a tooltip for the points on the line
+		const TOOLTIP = d3.select("#vis-enc-2")
+						  .append("div")
+						  .attr("class", "pt-tooltip");
+
+		// Define event handler functions for tooltips
+		function handleMouseover(event) {
+			// Make opaque on mouseover
+			TOOLTIP.style("opacity", 1);
+			// Highlight the bar (and outline for accessibility) on mouseover
+			d3.select(this).style("stroke", "lime")
+					.style("stroke-width", "4px");
+		}
+
+		function handleMousemove(event, d) {
+			TOOLTIP.style("opacity", 1);
+			// cover edge cases where the ones place is 10 and the tens place is 0
+			if (d.y/2 == 10) {
+				coords_to_percent = (d.x).toString() + "0%"
+			} else if (d.x-1 == 0) {
+				coords_to_percent = (d.y/2).toString() + "%"
+			} else {
+				coords_to_percent = (d.x-1).toString() + (d.y/2).toString() + "%"
+			}
+			TOOLTIP.html("Percent Remaining at<br>Highlighted Point:<br>" + coords_to_percent)
+			    .style("left", "625px")
+       			.style("top", "1600px")
+		}
+
+		function handleMouseleave(event) {
+			// Make transparent on mouseleave
+			// return column fill and stroke to original
+			TOOLTIP.style("opacity", 0);
+			d3.select(this).style('stroke', "brown").style("stroke-width", "2px");
+		}
 
 	})
 })
