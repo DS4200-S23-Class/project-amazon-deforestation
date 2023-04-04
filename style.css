@@ -7,13 +7,25 @@ h1 {
     text-align: center;
 }
 
+
+/* Styling for Visualization 1 */
+.frame {
+
+}
+
+.highlight {
+    stroke: lightseagreen;
+    stroke-width: 3px;
+}
+
+
 /* VISUALIZATION 1.2 SPECIFIC STYLING [BARPLOT] */
 /* Add class styling the bars of the barplot */
-/*.bar {
+.bar {
     fill: rosybrown;
     stroke: saddlebrown;
     stroke-width: 3px;
-}*/
+}
 
 .pt-tooltip {
     opacity: 0;
@@ -95,8 +107,6 @@ h1 {
 }
 
 .selected {
-/*    stroke: lime;
-    stroke-width: 3px;*/
     fill: #4A0404;
     stroke: #00FF00;
     opacity: 1;
@@ -125,7 +135,11 @@ h1 {
 }
 
 
-
+/* Highlight the slice of the bar chart on click */
+.highlight-slice {
+    stroke: lime;
+    stroke-width: 5px;
+}
 
 
 

@@ -40,24 +40,14 @@ d3.csv("avg_def_data.csv").then((data) => {
                        .append("div")
 					   .attr("class", "pt-tooltip");
 
-	// Define event handler functions for tooltips
-    function handleMouseover(event, d) {
+	// // Define event handler functions for tooltips
+    // function handleMouseover(event, d) {
       
-       // Make opaque on mouseover
-       // TOOLTIP.style("opacity", 1);
+    //    // Make opaque on mouseover
+    //    // TOOLTIP.style("opacity", 1);
 
-       // Highlight the bar (and outline for accessibility) on mouseover
-       d3.select(this).style("fill", "lightseagreen")
-      				  .style("stroke", "black")
-      				  .style("stroke-width", "3px");
-    }
-
-    // function handleMousemove(event, d) {
-    //    TOOLTIP.style("opacity", 1);
-    //    // Position the tooltip and fill in information 
-    //    TOOLTIP.html("Category: " + d.Year_Range + "<br>Value: " + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
-    //            .style("left", event.x + "px")
-    //            .style("top", (event.y + 600) + "px"); // Place the tooltip
+    //    // Highlight the bar (and outline for accessibility) on mouseover
+    //    d3.select(this).attr("class", "highlight")
     // }
 
     function handleMouseclick(event, d) {
@@ -83,13 +73,13 @@ d3.csv("avg_def_data.csv").then((data) => {
 
 	}
 
-    function handleMouseleave(event, d) {
+    // function handleMouseleave(event, d) {
       
-       // Make transparent on mouseleave
-   	   // return column fill and stroke to original
-       d3.select(this).style("fill", "rosybrown")
-      				  .style("stroke", "saddlebrown"); 
-    }
+    //    // Make transparent on mouseleave
+   	//    // return column fill and stroke to original
+    //    d3.select(this).style("fill", "rosybrown")
+    //   				  .style("stroke", "saddlebrown"); 
+    // }
 
 
 
@@ -102,11 +92,8 @@ d3.csv("avg_def_data.csv").then((data) => {
         .attr("y", function(d) { return ySCALE_REV(d.Average_Proportion_Area_Deforested) + MARGINS.top; })
         .attr("width", function(d) { return xSCALE(d.Range_Maximums) - xSCALE(d.Range_Minimums); })
         .attr("height", function(d) { return VIS_HEIGHT - ySCALE_REV(d.Average_Proportion_Area_Deforested); })
-        .attr("class", "bar")
         .attr("id", function(d) { return "vis1-"+ (d.Range_Minimums);})
-        .attr("fill", "rosybrown")
-        .attr("stroke", "saddlebrown")
-        .attr("stroke-width", "3px")
+        .attr("class", "bar")
        // .on("mouseover", handleMouseover) // Add event listeners
        // .on("mousemove", handleMousemove)
        // .on("mouseleave", handleMouseleave)
@@ -118,14 +105,12 @@ d3.csv("avg_def_data.csv").then((data) => {
 		   "," + (VIS_HEIGHT + MARGINS.bottom) + ")")
 	    .call(d3.axisBottom(xSCALE))
 	    .selectAll("text")
-		  // .attr("font-size", "10px")
 	    .attr("class", "axis-text");
 
     // Provide a label for the x-axis
     FRAME1.append("text")
         .attr("x", 245)
         .attr("y", 490)
-        // .attr("text-anchor", "middle")
         .attr("class", "xlab")
         .text("Years");
 
@@ -134,7 +119,6 @@ d3.csv("avg_def_data.csv").then((data) => {
 	    .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")") 
 	    .call(d3.axisLeft(ySCALE_REV))
 	    .selectAll("text")
-		  // .attr("font-size", "10px")
 	    .attr("class", "axis-text");
 
     // Provide a label for the y-axis
@@ -142,7 +126,6 @@ d3.csv("avg_def_data.csv").then((data) => {
         .attr("transform", "rotate(-90)")
         .attr("x", -260)
         .attr("y", 12)
-        // .attr("text-anchor", "middle")
         .attr("class", "xlab")
         .text("Proportion of Area Deforested");
 
@@ -150,8 +133,6 @@ d3.csv("avg_def_data.csv").then((data) => {
 	FRAME1.append("text")
         .attr("x", 255)
         .attr("y", 20)
-        // .attr("text-anchor", "middle")
-        // .style("font-size", "22px")
         .attr("class", "title")
         .text("Deforestation in the Amazon");
 
@@ -328,10 +309,6 @@ d3.csv("all_scatter_points.csv").then((data) => {
 						.attr("height", FRAME_HEIGHT)
 						.attr("width", FRAME_WIDTH)
 						.attr("class", "border");
-						// .style("stroke", "black")
-						// .style("stroke-width", 10)
-						// .style("fill", "none");
-
 
 	})
 })
@@ -412,9 +389,6 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	                   .join('path')
 	                   .attr('d', arcGenerator)
 	                   .attr('fill', function(d){ return(color(d.data[0])) })
-	                   // .attr("stroke", "black")
-	                   // .style("stroke-width", "2px")
-	                   // .style("opacity", 0.7)
 	                   .attr("class", "slices")
 			        .on("mouseover", handleMouseover)
 			        .on("mousemove", handleMousemove)
@@ -454,8 +428,6 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	// Add a title to the chart
 	FRAME3.append("text")
 	      .attr("y", -220)
-	      // .attr("text-anchor", "middle")
-	      // .attr("font-size", "22px")
 	      .attr("class", "title")
 	      .text("% Deforestation of Amazon in Year 2000");
 
@@ -465,8 +437,6 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	      .join('text')
 	      .text(function(d){ return Number(Math.round(d.data[1] + 'e2') + 'e-2').toFixed(1) + "%"})
 	      .attr("transform", function(d) { return `translate(${arcGenerator.centroid(d)})`})
-	      // .style("text-anchor", "middle")
-	      // .style("font-size", 17)
 	      .attr("class", "slice-labs")
 
 	// Create a data list for the legend
@@ -500,9 +470,7 @@ d3.csv("all_pie_slices.csv").then(function(data) {
 	        .attr("y", function(d,i){ return 150 + i*(size+5) + (size/2)})
 	        .style("fill", "black")
 	        .text(function(d){ return d})
-	        // .attr("text-anchor", "left")
 	        .style("alignment-baseline", "middle")
-	        // .style("font-size", 11)
 	        .attr("class", "sq-labs")
 
 	// Create a tooltip for the points on the line
@@ -516,9 +484,8 @@ d3.csv("all_pie_slices.csv").then(function(data) {
        // Make opaque on mouseover
        TOOLTIP.style("opacity", 1);
 
-       // Highlight the bar (and outline for accessibility) on mouseover
-       d3.select(this).style("stroke", "lime")
-      				  .style("stroke-width", "5px");
+       // Highlight the pie slice on mouseover
+       d3.select(this).attr("class", "highlight-slice");
     }
 
     function handleMousemove(event, d) {
@@ -538,7 +505,8 @@ d3.csv("all_pie_slices.csv").then(function(data) {
    	   // return column fill and stroke to original
        TOOLTIP.style("opacity", 0);
 
-       d3.select(this).style('stroke', "black").style("stroke-width", "2px");
+       d3.select(this).classed('highlight-slice', false);
+       d3.select(this).classed('slices', true)
    }
 });
 
