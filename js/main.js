@@ -268,6 +268,7 @@ d3.csv("def_data.csv").then((data) => {
 	
 })
 
+/* =====================  VISUALIZATION 2: DOT PLOT  ===========================*/
 
 const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("height", FRAME_HEIGHT)
@@ -275,57 +276,64 @@ const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("class", "frame");
 
 d3.csv("all_scatter_points.csv").then((data) => {
+	d3.csv("def_data.csv").then((def_data) => {
 
-	// Print the data
-	console.log(data)
+		// Print the data
+		console.log(data)
 
-	const MAX_X_LENGTH = d3.max(data, (d) => { return parseInt(d.x); });
-  	const MAX_Y_LENGTH = d3.max(data, (d) => { return parseInt(d.y); });
+		const MAX_X_LENGTH = d3.max(data, (d) => { return parseInt(d.x); });
+		const MAX_Y_LENGTH = d3.max(data, (d) => { return parseInt(d.y); });
 
-	// Create the scales for scatter plot
-	const ySCALE = d3.scaleLinear() 
-	    .domain([0, MAX_Y_LENGTH])
-	    .range([VIS_HEIGHT, 0]);
+		// Create the scales for scatter plot
+		const ySCALE = d3.scaleLinear() 
+			.domain([0, MAX_Y_LENGTH])
+			.range([VIS_HEIGHT, 0]);
 
-	const xSCALE = d3.scaleLinear()
-	    .domain([0, MAX_X_LENGTH])
-	    .range([0, VIS_WIDTH]);
-	
-    let myPoints = FRAME2.append("g")
-  		.selectAll("points")  
-	      .data(data) // Passed from .then  
-	      .enter()       
-	      .append("circle")
-	      	 .attr("cx", (d) => { return (xSCALE(d.x) + 25); })
-	         .attr("cy", (d) => { return (ySCALE(d.y) + MARGINS.top + 10); })
-	         .attr("r", 10)
-	         .attr("class", "pt")
-			 .attr("r", 8)
-	         .attr("class", "pt")
-			 .attr("fill", function (d) {
-				if(d.x < 8 || (d.x == 8 && d.y < 17)){
-				  return "green"
-				} else {
-				  return "white"
-				}})
-			 .attr("stroke", function (d) {
-				if(d.x < 8 || (d.x == 8 && d.y < 17)){
-					return "darkgreen"
-				} else {
-					return "brown"
-				}})
-			 .attr("stroke-width", 2);
+		const xSCALE = d3.scaleLinear()
+			.domain([0, MAX_X_LENGTH])
+			.range([0, VIS_WIDTH]);
 
-	// add border around vis 2
-	let border = FRAME2.select("g")
-					.append("rect")
-  					.attr("height", FRAME_HEIGHT)
-  					.attr("width", FRAME_WIDTH)
-  					.attr("class", "border");
-  					// .style("stroke", "black")
-  					// .style("stroke-width", 10)
-  					// .style("fill", "none");
+		let selection = "2002" //PLACEHOLDER FOR NOW, GET YEAR FROM LINKING
+		let xcoord = parseInt(def_data.find(d => d.Year === selection).x_coord);
+		let ycoord = parseInt(def_data.find(d => d.Year === selection).y_coord);
+		
+		let myPoints = FRAME2.append("g")
+			.selectAll("points")  
+			.data(data) // Passed from .then  
+			.enter()       
+			.append("circle")
+				.attr("cx", (d) => { return (xSCALE(d.x) + 25); })
+				.attr("cy", (d) => { return (ySCALE(d.y) + MARGINS.top + 10); })
+				.attr("r", 10)
+				.attr("class", "pt")
+				.attr("r", 8)
+				.attr("class", "pt")
+				.attr("fill", function (d) {
+					if(d.x < xcoord || (d.x == xcoord && d.y <= ycoord)){
+						return "green"
+					} else {
+						return "white"
+					}})
+				.attr("stroke", function (d) {
+					if(d.x < xcoord || (d.x == xcoord && d.y <= ycoord)){
+						return "darkgreen"
+					} else {
+						return "brown"
+					}})
+				.attr("stroke-width", 2);
 
+		// add border around vis 2
+		let border = FRAME2.select("g")
+						.append("rect")
+						.attr("height", FRAME_HEIGHT)
+						.attr("width", FRAME_WIDTH)
+						.attr("class", "border");
+						// .style("stroke", "black")
+						// .style("stroke-width", 10)
+						// .style("fill", "none");
+
+
+	})
 })
 
 
