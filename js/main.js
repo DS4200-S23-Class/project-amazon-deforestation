@@ -1,6 +1,6 @@
 // JS File for Amazon Deforestation Project
 // Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
-// Last Modified: 04.04.2023
+// Last Modified: 04.05.2023
 
 
 // Instantiate visualization dimensions/limitations
