@@ -332,9 +332,9 @@ d3.csv("all_scatter_points.csv").then((data) => {
 			} else {
 				coords_to_percent = (d.x-1).toString() + (d.y/2).toString() + "%"
 			}
-			TOOLTIP.html("Percent Remaining at<br>Highlighted Point:<br>" + coords_to_percent)
-			    .style("left", "625px")
-       			.style("top", "1600px")
+			TOOLTIP.html("% Remaining<br>from Point:<br>" + coords_to_percent)
+					.style("left", (event.pageX + 10) + "px")
+					.style("top", (event.pageY - 50) + "px");
 		}
 
 		function handleMouseleave(event) {
