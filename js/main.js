@@ -433,7 +433,12 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 				.attr("r", 10)
 				.attr("r", 8)
 				.attr("class", "pt")
-				.attr("fill", "green")
+				.attr("fill", function (d) {
+					if((d.x-1) < 9 || ((d.x-1) == 9 && d.y <= 5)){ // hard code coords for 2000 to start
+						return "green"
+					} else {
+						return "white"
+					}})
 				.attr("stroke", "brown")
 				.attr("stroke-width", 2)
 				.on("mouseover", handleMouseover)
@@ -450,6 +455,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 						return "white"
 					}})
 		}
+
 		// add border around vis 2
 		let border = FRAME2.select("g")
 						.append("rect")
