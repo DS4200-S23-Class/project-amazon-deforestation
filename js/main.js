@@ -41,14 +41,15 @@ d3.csv("avg_def_data.csv").then((data) => {
 					   .attr("class", "pt-tooltip");
 
 	// // Define event handler functions for tooltips
-    // function handleMouseover(event, d) {
-      
+    function handleMouseover(event, d) {
+        d3.select(this).classed("highlight-slice", true);
+
     //    // Make opaque on mouseover
     //    // TOOLTIP.style("opacity", 1);
 
     //    // Highlight the bar (and outline for accessibility) on mouseover
     //    d3.select(this).attr("class", "highlight")
-    // }
+    }
 
     function handleMouseclick(event, d) {
     	TOOLTIP.style("opacity", 1);
@@ -73,13 +74,15 @@ d3.csv("avg_def_data.csv").then((data) => {
 
 	}
 
-    // function handleMouseleave(event, d) {
+    function handleMouseleave(event, d) {
+    	d3.select(this).classed("highlight-slice", false);
+
       
     //    // Make transparent on mouseleave
    	//    // return column fill and stroke to original
     //    d3.select(this).style("fill", "rosybrown")
     //   				  .style("stroke", "saddlebrown"); 
-    // }
+    }
 
 
 
@@ -94,9 +97,9 @@ d3.csv("avg_def_data.csv").then((data) => {
         .attr("height", function(d) { return VIS_HEIGHT - ySCALE_REV(d.Average_Proportion_Area_Deforested); })
         .attr("id", function(d) { return "vis1-"+ (d.Range_Minimums);})
         .attr("class", "bar")
-       // .on("mouseover", handleMouseover) // Add event listeners
+        .on("mouseover", handleMouseover) // Add event listeners
        // .on("mousemove", handleMousemove)
-       // .on("mouseleave", handleMouseleave)
+       .on("mouseleave", handleMouseleave)
        .on("click", handleMouseclick);
 
     // Create the x-axis
@@ -316,12 +319,11 @@ d3.csv("all_pie_slices.csv").then(function(piedata) {
 		// Define event handler functions for tooltips
     	function handleMouseover(event, d) {
        	   // Make opaque on mouseover
-           TOOLTIP.style("opacity", 1);
+           // TOOLTIP.style("opacity", 1);
 
            // Highlight the bar (and outline for accessibility) on mouseover
-           d3.select(this).style("fill", "lime")
-      				      .style("stroke", "lime")
-      				      .style("stroke-width", "5px");
+          d3.select(this).classed("highlight-slice", true);
+
         }
 
         function handleMousemove(event, d) {
@@ -361,10 +363,8 @@ d3.csv("all_pie_slices.csv").then(function(piedata) {
       
            // Make transparent on mouseleave
    	       // return column fill and stroke to original
-           TOOLTIP.style("opacity", 0);
 
-           d3.select(this).style("fill", "green")
-       				      .style("stroke", "none");
+           d3.select(this).classed("highlight-slice", false);
         }
 
 		let myLine = d3.line()
@@ -394,9 +394,9 @@ d3.csv("all_pie_slices.csv").then(function(piedata) {
 	            .attr("opacity", "1")
 	            .attr("class", "vis1-point")
 	            .attr("id", (d) => { return d.Year; })
-	        // .on("mouseover", handleMouseover) // Add event listeners
+	        .on("mouseover", handleMouseover) // Add event listeners
             // .on("mousemove", handleMousemove)
-            // .on("mouseleave", handleMouseleave)
+            .on("mouseleave", handleMouseleave)
 	           .on("click", handleMouseclick);
 	         // .attr("fill", "black");
     })
