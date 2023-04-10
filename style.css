@@ -93,7 +93,29 @@ h1 {
     scroll-snap-type: x mandatory;
 }
 
+#bird-motiv {
+    width: 5%;
+    height: 8%;
+    position: absolute;
+    top: 40px;
+    left: 60px;
+}
 
+#bird-viz {
+    width: 5%;
+    height: 8%;
+    position: absolute;
+    top: 40px;
+    left: 240px;
+}
+
+#bird-src {
+    width: 5%;
+    height: 8%;
+    position: absolute;
+    top: 40px;
+    left: 380px;
+}
 /*.tooltip {
     opacity: 0;
     background-color: lightgrey;

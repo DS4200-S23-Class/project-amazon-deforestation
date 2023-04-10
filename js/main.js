@@ -697,7 +697,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					console.log(d3.select(this) + "clicked");
 
 					TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
-							.style("right", MARGINS.right + "px")
+							.style("right", MARGINS.right*2 + "px")
 							.style("top", "400px")
 
 					d3.selectAll(".vis1-point").classed("selected", false)
