@@ -177,6 +177,19 @@ h1 {
     flex-wrap: wrap;
 }
 
+/* Adjusts the left column */
+.flex-left-text {
+    width: 45%;
+    flex-wrap: flex;
+    flex-direction: column;
+}
+
+/* Adjusts the right column */
+.flex-right-text {
+    flex-direction: column;
+    width: 45%;
+    flex-wrap: wrap;
+}
 
 /* Highlight the slice of the bar chart on click */
 .highlight-slice {
