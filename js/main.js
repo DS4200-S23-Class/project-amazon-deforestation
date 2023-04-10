@@ -453,7 +453,23 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					} else {
 						return "#DFBE9F"
 					}})
+			// Update title of the chart
+			FRAME2.select('.title')
+				.text(`% of Amazon Remaining in Year ${selection}`);
 		}
+
+		// Add a title
+		FRAME2.append("text")
+			.attr("y", 25)
+			.attr("x", 250)
+			.attr("class", "title")
+			.text("% of Amazon Remaining in Year 2000");
+
+		// Add subtitle
+		FRAME2.append("text")
+			.attr("y", 490)
+			.attr("x", 150)
+			.text('1 "Tree" = 0.5% of Rainforest');
 
 		// add border around vis 2
 		let border = FRAME2.select("g")
