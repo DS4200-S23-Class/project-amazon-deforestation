@@ -112,7 +112,7 @@ h1 {
     height: 8%;
     position: absolute;
     top: 40px;
-    left: 380px;
+    left: 390px;
 }
 /*.tooltip {
     opacity: 0;
@@ -182,6 +182,7 @@ h1 {
     width: 45%;
     flex-wrap: flex;
     flex-direction: column;
+    margin-left: 20px;
 }
 
 /* Adjusts the right column */
@@ -189,6 +190,9 @@ h1 {
     flex-direction: column;
     width: 45%;
     flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-left: auto;
+    margin-right: 20px;
 }
 
 /* Highlight the slice of the bar chart on click */
