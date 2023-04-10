@@ -12,6 +12,7 @@ const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
 const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
 
 
+
 /* =====================  VISUALIZATION 1: BAR CHART  ===========================*/
 
 // Append the bars to the FRAME1 element
@@ -59,8 +60,8 @@ d3.csv("avg_def_data.csv").then((data) => {
 		console.log(d3.select(this) + "clicked");
 
        	TOOLTIP.html("Year Range: <br>" + d.Year_Range + "<br>Average Proportion Area Deforested: <br>" + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
-       			.style("left", MARGINS.left + "px")
-       			.style("top", "1000px")
+       			.style("left", MARGINS.left*2 + "px")
+       			.style("top", "400px")
 
        	d3.selectAll(".bar").classed("selected", false)
 
@@ -317,20 +318,20 @@ d3.csv("avg_def_data.csv").then((data) => {
 
 
 		// Define event handler functions for tooltips
-    	function handleMouseover(event, d) {
+    	function handleMouseover(event) {
     		console.log('hovering')
 
            // Highlight the point on mouseover
           	d3.select(this).classed("highlight", true);
         }
 
-        function handleMousemove(event, d) {
-           TOOLTIP.style("opacity", 1);
-           // Position the tooltip and fill in information 
-           TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
-                   .style("left", event.x + "px")
-                   .style("top", (event.y + 600) + "px"); // Place the tooltip
-        }
+        // function handleMousemove(event, d) {
+        //    TOOLTIP.style("opacity", 1);
+        //    // Position the tooltip and fill in information 
+        //    TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
+        //            .style("left", event.x + "px")
+        //            .style("top", (event.y + 600) + "px"); // Place the tooltip
+        // }
 
         function handleMouseclick(event, d) {
     	    TOOLTIP.style("opacity", 1);
@@ -341,7 +342,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 
        	    TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
        			    .style("right", MARGINS.right + "px")
-       			    .style("top", "1000px")
+       			    .style("top", "400px")
 
        	    d3.selectAll(".vis1-point").classed("selected", false)
 
@@ -390,9 +391,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 	            .attr("opacity", "1")
 	            .attr("class", "vis1-point")
 	            .attr("id", (d) => { return d.Year; })
-	         .on("mouseover", function(d) {
-	         	d3.select(this).classed("highlight", true)
-	         }) // Add event listeners
+	         .on("mouseover", handleMouseover)// Add event listeners
             // .on("mousemove", handleMousemove)
              .on("mouseleave", handleMouseleave)
 	         .on("click", handleMouseclick);
@@ -409,7 +408,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 	d3.csv("def_data.csv").then((def_data) => {
 
 		// Print the data
-		console.log(data)
+		console.log(dotdata)
 
 		const MAX_X_LENGTH = d3.max(dotdata, (d) => { return parseInt(d.x); });
 		const MAX_Y_LENGTH = d3.max(dotdata, (d) => { return parseInt(d.y); });
@@ -437,7 +436,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					if((d.x-1) < 9 || ((d.x-1) == 9 && d.y <= 5)){ // hard code coords for 2000 to start
 						return "green"
 					} else {
-						return "white"
+						return "#DFBE9F"
 					}})
 				.attr("stroke", "brown")
 				.attr("stroke-width", 2)
@@ -452,7 +451,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					if((d.x-1) < xcoord || ((d.x-1) == xcoord && d.y <= ycoord)){
 						return "green"
 					} else {
-						return "white"
+						return "#DFBE9F"
 					}})
 		}
 
@@ -765,38 +764,4 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 
 	})
 })
-
-
-
-
-// create a function that will show and hide the text for motivation
-// and data on click of the button
-function showMotivation() {
-	let x = document.getElementById('motivation');
-	let button = document.getElementById("button")
-
-	if (x.style.display === "none") {
-		x.style.display = "block";
-	} else {
-		x.style.display = "none";
-	}
-
-}
-
-document.getElementById("button").addEventListener("click", showMotivation)
-
-
-function showData() {
-	let x = document.getElementById("data");
-	let button = document.getElementById("data-button")
-
-	if (x.style.display === "none") {
-		x.style.display = "block";
-	} else {
-		x.style.display = "none";
-	}
-}
-
-document.getElementById("button-div").addEventListener("click", showData)
-
 
