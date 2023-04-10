@@ -458,9 +458,11 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 		// add border around vis 2
 		let border = FRAME2.select("g")
 						.append("rect")
-						.attr("height", FRAME_HEIGHT)
-						.attr("width", FRAME_WIDTH)
-						.attr("class", "border");
+						.attr("height", FRAME_HEIGHT*.85)
+						.attr("width", FRAME_WIDTH*.85)
+						.attr("class", "border")
+						.attr("x", 35)
+						.attr("y", 37);
 
 		// Create a tooltip for the points on the line
 		const TOOLTIP = d3.select("#vis-enc-2")
@@ -674,21 +676,18 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 				// Define event handler functions for tooltips
 				function handleMouseover(event, d) {
 				// Make opaque on mouseover
-				TOOLTIP.style("opacity", 1);
 
 				// Highlight the bar (and outline for accessibility) on mouseover
-				d3.select(this).style("fill", "lime")
-								.style("stroke", "lime")
-								.style("stroke-width", "5px");
+				d3.select(this).classed("highlight-slice", true)
 				}
 
-				function handleMousemove(event, d) {
-				TOOLTIP.style("opacity", 1);
-				// Position the tooltip and fill in information 
-				TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
-						.style("left", event.x + "px")
-						.style("top", (event.y + 600) + "px"); // Place the tooltip
-				}
+				// function handleMousemove(event, d) {
+				// TOOLTIP.style("opacity", 1);
+				// // Position the tooltip and fill in information 
+				// TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
+				// 		.style("left", event.x + "px")
+				// 		.style("top", (event.y + 600) + "px"); // Place the tooltip
+				// }
 
 				function handleMouseclick(event, d) {
 					TOOLTIP.style("opacity", 1);
@@ -699,7 +698,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 
 					TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
 							.style("right", MARGINS.right + "px")
-							.style("top", "1000px")
+							.style("top", "400px")
 
 					d3.selectAll(".vis1-point").classed("selected", false)
 
@@ -720,10 +719,8 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 			
 				// Make transparent on mouseleave
 				// return column fill and stroke to original
-				TOOLTIP.style("opacity", 0);
 
-				d3.select(this).style("fill", "green")
-								.style("stroke", "none");
+				d3.select(this).classed("highlight-slice", false)
 				}
 
 				let myLine = d3.line()
@@ -753,9 +750,9 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 						.attr("opacity", "1")
 						.attr("class", "vis1-point")
 						.attr("id", (d) => { return d.Year; })
-					// .on("mouseover", handleMouseover) // Add event listeners
+					.on("mouseover", handleMouseover) // Add event listeners
 					// .on("mousemove", handleMousemove)
-					// .on("mouseleave", handleMouseleave)
+					.on("mouseleave", handleMouseleave)
 					.on("click", handleMouseclick);
 					// .attr("fill", "black");
 			})
