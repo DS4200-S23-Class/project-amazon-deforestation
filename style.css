@@ -32,9 +32,6 @@ h1 {
 
 
 /* Styling for Visualization 1 */
-.frame {
-
-}
 
 .highlight {
     stroke: lightseagreen;
@@ -77,6 +74,7 @@ h1 {
 
 .title {
     text-anchor: middle;
+    text-align: center;
     font-size: 22px;
 }
 
