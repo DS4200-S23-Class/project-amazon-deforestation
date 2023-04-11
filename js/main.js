@@ -1,6 +1,6 @@
 // JS File for Amazon Deforestation Project
 // Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
-// Last Modified: 04.05.2023
+// Last Modified: 04.11.2023
 
 
 // Instantiate visualization dimensions/limitations
@@ -25,7 +25,7 @@ const FRAME1 = d3.select("#vis-enc-1").append("svg")
 d3.csv("avg_def_data.csv").then((data) => {
 
 	// Print the data
-	console.log(data)
+	console.log(data);
 
 	// Create the scales and bin range for the histogram
 	const ySCALE_REV = d3.scaleLinear() 
@@ -50,7 +50,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 
     //    // Highlight the bar (and outline for accessibility) on mouseover
     //    d3.select(this).attr("class", "highlight")
-    }
+    };
 
     function handleMouseclick(event, d) {
     	TOOLTIP.style("opacity", 1);
@@ -61,19 +61,17 @@ d3.csv("avg_def_data.csv").then((data) => {
 
        	TOOLTIP.html("Year Range: <br>" + d.Year_Range + "<br>Average Proportion Area Deforested: <br>" + d3.format(".3f")(d.Average_Proportion_Area_Deforested))
        			.style("left", MARGINS.left*2 + "px")
-       			.style("top", "400px")
+       			.style("top", "400px");
 
-       	d3.selectAll(".bar").classed("selected", false)
+       	d3.selectAll(".bar").classed("selected", false);
 
        	if (d3.select(this).classed("selected")) {
-       		d3.select(this).classed("selected", false)
-       	}
+       		d3.select(this).classed("selected", false);
+       	};
        	else {
-       		d3.select(this).classed("selected", true)
-       	}
-
-
-	}
+       		d3.select(this).classed("selected", true);
+       	};
+	};
 
     function handleMouseleave(event, d) {
     	d3.select(this).classed("highlight-slice", false);
@@ -83,9 +81,7 @@ d3.csv("avg_def_data.csv").then((data) => {
    	//    // return column fill and stroke to original
     //    d3.select(this).style("fill", "rosybrown")
     //   				  .style("stroke", "saddlebrown"); 
-    }
-
-
+    };
 
     // Create the bars and add event listeners
     FRAME1.selectAll("bar")
@@ -300,7 +296,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 	d3.csv("def_data.csv").then((linedata) => {
 
 		// Print the data
-		console.log(linedata)
+		console.log(linedata);
 
 		// Create the scales for the scatter plot
 		const ySCALE_REV = d3.scaleLinear() 
@@ -316,14 +312,13 @@ d3.csv("avg_def_data.csv").then((data) => {
                        	   .append("div")
 					       .attr("class", "pt-tooltip");
 
-
 		// Define event handler functions for tooltips
     	function handleMouseover(event) {
-    		console.log('hovering')
+    		console.log('hovering');
 
            // Highlight the point on mouseover
           	d3.select(this).classed("highlight", true);
-        }
+        };
 
         // function handleMousemove(event, d) {
         //    TOOLTIP.style("opacity", 1);
@@ -342,35 +337,35 @@ d3.csv("avg_def_data.csv").then((data) => {
 
        	    TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
        			    .style("right", MARGINS.right + "px")
-       			    .style("top", "400px")
+       			    .style("top", "400px");
 
-       	    d3.selectAll(".vis1-point").classed("selected", false)
+       	    d3.selectAll(".vis1-point").classed("selected", false);
 
        	    if (d3.select(this).classed("selected")) {
-       		    d3.select(this).classed("selected", false)
-       	    }
+       		    d3.select(this).classed("selected", false);
+       	    };
        	    else {
-       		    d3.select(this).classed("selected", true)
-       	    }
+       		    d3.select(this).classed("selected", true);
+       	    };
 
        	    let selectedYear = d.Year;
 
        	    updatePieChart(selectedYear);
-	    }
+	    };
 
         function handleMouseleave(event, d) {
       
            // Make transparent on mouseleave
    	       // return column fill and stroke to original
-        	console.log("left")
+        	console.log("left");
 
             d3.select(this).classed("highlight", false);
-        }
+        };
 
 		let myLine = d3.line()
         	.x(function(d) { return xSCALE(d.Year) - MARGINS.left; }) 
         	.y(function(d) { return ySCALE_REV(d.Proportion_Area_Deforested) - MARGINS.top; }) 
-        	.curve(d3.curveMonotoneX)
+        	.curve(d3.curveMonotoneX);
         
         	FRAME1.append("path")
         	.datum(linedata) 
@@ -408,7 +403,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 	d3.csv("def_data.csv").then((def_data) => {
 
 		// Print the data
-		console.log(dotdata)
+		console.log(dotdata);
 
 		const MAX_X_LENGTH = d3.max(dotdata, (d) => { return parseInt(d.x); });
 		const MAX_Y_LENGTH = d3.max(dotdata, (d) => { return parseInt(d.y); });
@@ -434,10 +429,10 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 				.attr("class", "pt")
 				.attr("fill", function (d) {
 					if((d.x-1) < 9 || ((d.x-1) == 9 && d.y <= 5)){ // hard code coords for 2000 to start
-						return "green"
-					} else {
-						return "#DFBE9F"
-					}})
+						return "green";
+					}; else {
+						return "#DFBE9F";
+					};})
 				.attr("stroke", "brown")
 				.attr("stroke-width", 2)
 				.on("mouseover", handleMouseover)
@@ -449,14 +444,14 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 			let ycoord = parseInt(def_data.find(d => d.Year === selection).y_coord);
 			d3.selectAll(".pt").attr("fill", function (d) {
 					if((d.x-1) < xcoord || ((d.x-1) == xcoord && d.y <= ycoord)){
-						return "green"
-					} else {
-						return "#DFBE9F"
-					}})
+						return "green";
+					}; else {
+						return "#DFBE9F";
+					};});
 			// Update title of the chart
 			FRAME2.select('.title')
 				.text(`% of Amazon Remaining in Year ${selection}`);
-		}
+		};
 
 		// Add a title
 		FRAME2.append("text")
@@ -492,29 +487,29 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 			// Highlight the bar (and outline for accessibility) on mouseover
 			d3.select(this).style("stroke", "lime")
 					.style("stroke-width", "4px");
-		}
+		};
 
 		function handleMousemove(event, d) {
 			TOOLTIP.style("opacity", 1);
 			// cover edge cases where the ones place is 10 and the tens place is 0
 			if (d.y/2 == 10) {
-				coords_to_percent = (d.x).toString() + "0%"
-			} else if (d.x-1 == 0) {
-				coords_to_percent = (d.y/2).toString() + "%"
-			} else {
-				coords_to_percent = (d.x-1).toString() + (d.y/2).toString() + "%"
-			}
+				coords_to_percent = (d.x).toString() + "0%";
+			}; else if (d.x-1 == 0) {
+				coords_to_percent = (d.y/2).toString() + "%";
+			}; else {
+				coords_to_percent = (d.x-1).toString() + (d.y/2).toString() + "%";
+			};
 			TOOLTIP.html("% Remaining<br>from Point:<br>" + coords_to_percent)
 					.style("left", (event.pageX + 10) + "px")
 					.style("top", (event.pageY - 50) + "px");
-		}
+		};
 
 		function handleMouseleave(event) {
 			// Make transparent on mouseleave
 			// return column fill and stroke to original
 			TOOLTIP.style("opacity", 0);
 			d3.select(this).style('stroke', "brown").style("stroke-width", "2px");
-		}
+		};
 
 		/* =====================  VISUALIZATION 3: PIE CHART  ===========================*/
 
@@ -540,19 +535,19 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 
 			// Create a colorway for the pie chart
 			const color = d3.scaleOrdinal()
-			.range(["#ffed00", "#008026"])
+			.range(["#ffed00", "#008026"]);
 
 			// Create the actual pie chart
 			let pie = d3.pie()
-			.value(function(d) {return d[1]})
-			let data_ready = pie(Object.entries(pieData))
+			.value(function(d) {return d[1]});
+			let data_ready = pie(Object.entries(pieData));
 
-			console.log(data_ready)
+			console.log(data_ready);
 
 			// Generate the arcs for the slices
 			const arcGenerator = d3.arc()
 			.innerRadius(0)
-			.outerRadius(radius)
+			.outerRadius(radius);
 
 			// Add the slices to the chart
 			let slices = FRAME3.selectAll('mySlices')
@@ -572,8 +567,8 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 				});
 
 				let pie = d3.pie()
-				.value(function(d) {return d[1]})
-				let data_ready = pie(Object.entries(pieData))
+				.value(function(d) {return d[1]});
+				let data_ready = pie(Object.entries(pieData));
 
 				let slices = FRAME3.selectAll('.slices')
 				.data(data_ready);
@@ -588,7 +583,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 				// Update title of the chart
 				FRAME3.select('.title')
 				.text(`% Deforestation of Amazon in Year ${year}`);
-			}
+			};
 
 			// Add a title to the chart
 			FRAME3.append("text")
@@ -607,7 +602,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 			.range(["#ffed00", "#008026"]);
 
 			// Add the squares to the legend
-			const size = 20
+			const size = 20;
 			FRAME3.selectAll("mydots")
 				.data(columnData)
 				.enter()
@@ -616,7 +611,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					.attr("y", function(d,i){ return 150 + i*(size+5)})
 					.attr("width", size)
 					.attr("height", size)
-					.style("fill", function(d){ return legendColor(d)})
+					.style("fill", function(d){ return legendColor(d)});
 
 			// Add labels to the squares
 			FRAME3.selectAll("mylabels")
@@ -628,7 +623,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					.style("fill", "black")
 					.text(function(d){ return d})
 					.style("alignment-baseline", "middle")
-					.attr("class", "sq-labs")
+					.attr("class", "sq-labs");
 
 			// Create a tooltip for the points on the line
 			const TOOLTIP = d3.select("#vis-enc-3")
@@ -638,33 +633,33 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 
 			// Define event handler functions for tooltips
 			function handleMouseover(event, d) {
-			// Make opaque on mouseover
-			TOOLTIP.style("opacity", 1);
+				// Make opaque on mouseover
+				TOOLTIP.style("opacity", 1);
 
-			// Highlight the pie slice on mouseover
-			d3.select(this).attr("class", "highlight-slice");
-			}
+				// Highlight the pie slice on mouseover
+				d3.select(this).attr("class", "highlight-slice");
+			};
 
 			function handleMousemove(event, d) {
-			TOOLTIP.style("opacity", 1);
-			// Position the tooltip and fill in information 
-			TOOLTIP.html("Percent of Amazon: " + percentage(d))
-					.style("right", "170px");
-			}
+				TOOLTIP.style("opacity", 1);
+			
+				// Position the tooltip and fill in information 
+				TOOLTIP.html("Percent of Amazon: " + percentage(d))
+					   .style("right", "170px");
+			};
 
 			function percentage(d){
 				return Number(Math.round(d.data[1] + 'e2') + 'e-2').toFixed(1) + "%";
-			}
+			};
 
 			function handleMouseleave(event, d) {
-			
-			// Make transparent on mouseleave
-			// return column fill and stroke to original
-			TOOLTIP.style("opacity", 0);
+				// Make transparent on mouseleave
+				// return column fill and stroke to original
+				TOOLTIP.style("opacity", 0);
 
-			d3.select(this).classed('highlight-slice', false);
-			d3.select(this).classed('slices', true)
-			}
+				d3.select(this).classed('highlight-slice', false);
+				d3.select(this).classed('slices', true);
+			};
 
 
 			/* =====================  VISUALIZATION 1.2: LINE PLOT  ===========================*/
@@ -672,7 +667,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 			d3.csv("def_data.csv").then((linedata) => {
 
 				// Print the data
-				console.log(linedata)
+				console.log(linedata);
 
 				// Create the scales for the scatter plot
 				const ySCALE_REV = d3.scaleLinear() 
@@ -691,11 +686,11 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 
 				// Define event handler functions for tooltips
 				function handleMouseover(event, d) {
-				// Make opaque on mouseover
+					// Make opaque on mouseover
 
-				// Highlight the bar (and outline for accessibility) on mouseover
-				d3.select(this).classed("highlight-slice", true)
-				}
+					// Highlight the bar (and outline for accessibility) on mouseover
+					d3.select(this).classed("highlight-slice", true);
+				};
 
 				// function handleMousemove(event, d) {
 				// TOOLTIP.style("opacity", 1);
@@ -714,35 +709,35 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 
 					TOOLTIP.html("Year: " + d.Year + "<br>Proportion Area Deforested: " + d3.format(".3f")(d.Proportion_Area_Deforested))
 							.style("right", MARGINS.right*2 + "px")
-							.style("top", "400px")
+							.style("top", "400px");
 
-					d3.selectAll(".vis1-point").classed("selected", false)
+					d3.selectAll(".vis1-point").classed("selected", false);
 
 					if (d3.select(this).classed("selected")) {
-						d3.select(this).classed("selected", false)
-					}
+						d3.select(this).classed("selected", false);
+					};
 					else {
-						d3.select(this).classed("selected", true)
-					}
+						d3.select(this).classed("selected", true);
+					};
 
 					let selectedYear = d.Year;
 
 					updatePieChart(selectedYear);
 					updateDotPlot(selectedYear);
-				}
+				};
 
 				function handleMouseleave(event, d) {
 			
-				// Make transparent on mouseleave
-				// return column fill and stroke to original
+					// Make transparent on mouseleave
+					// return column fill and stroke to original
 
-				d3.select(this).classed("highlight-slice", false)
-				}
+					d3.select(this).classed("highlight-slice", false);
+				};
 
 				let myLine = d3.line()
 					.x(function(d) { return xSCALE(d.Year) - MARGINS.left; }) 
 					.y(function(d) { return ySCALE_REV(d.Proportion_Area_Deforested) - MARGINS.top; }) 
-					.curve(d3.curveMonotoneX)
+					.curve(d3.curveMonotoneX);
 				
 					FRAME1.append("path")
 					.datum(linedata) 
@@ -771,10 +766,11 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					.on("mouseleave", handleMouseleave)
 					.on("click", handleMouseclick);
 					// .attr("fill", "black");
-			})
+			});
 
 		});
 
-	})
-})
+	});
+
+});
 
