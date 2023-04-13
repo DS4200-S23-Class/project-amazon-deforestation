@@ -67,7 +67,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 
        	if (d3.select(this).classed("selected")) {
        		d3.select(this).classed("selected", false);
-       	};
+       	}
        	else {
        		d3.select(this).classed("selected", true);
        	};
@@ -343,7 +343,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 
        	    if (d3.select(this).classed("selected")) {
        		    d3.select(this).classed("selected", false);
-       	    };
+       	    }
        	    else {
        		    d3.select(this).classed("selected", true);
        	    };
@@ -430,7 +430,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 				.attr("fill", function (d) {
 					if((d.x-1) < 9 || ((d.x-1) == 9 && d.y <= 5)){ // hard code coords for 2000 to start
 						return "green";
-					}; else {
+					} else {
 						return "#DFBE9F";
 					};})
 				.attr("stroke", "brown")
@@ -445,7 +445,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 			d3.selectAll(".pt").attr("fill", function (d) {
 					if((d.x-1) < xcoord || ((d.x-1) == xcoord && d.y <= ycoord)){
 						return "green";
-					}; else {
+					} else {
 						return "#DFBE9F";
 					};});
 			// Update title of the chart
@@ -494,9 +494,9 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 			// cover edge cases where the ones place is 10 and the tens place is 0
 			if (d.y/2 == 10) {
 				coords_to_percent = (d.x).toString() + "0%";
-			}; else if (d.x-1 == 0) {
+			} else if (d.x-1 == 0) {
 				coords_to_percent = (d.y/2).toString() + "%";
-			}; else {
+			} else {
 				coords_to_percent = (d.x-1).toString() + (d.y/2).toString() + "%";
 			};
 			TOOLTIP.html("% Remaining<br>from Point:<br>" + coords_to_percent)
@@ -715,7 +715,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 
 					if (d3.select(this).classed("selected")) {
 						d3.select(this).classed("selected", false);
-					};
+					}
 					else {
 						d3.select(this).classed("selected", true);
 					};
