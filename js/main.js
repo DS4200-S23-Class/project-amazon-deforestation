@@ -126,7 +126,6 @@ d3.csv("avg_def_data.csv").then((data) => {
 
 });
 
-
 /* =====================  VISUALIZATION 2: DOT PLOT  ===========================*/
 
 // Create a frame for the second visual encoding
@@ -446,7 +445,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 							.style("right", MARGINS.right*2 + "px")
 							.style("top", "400px");
 
-					d3.selectAll(".vis1-point").classed("selected", false);
+					d3.selectAll(".point").classed("selected", false);
 
 					if (d3.select(this).classed("selected")) {
 						d3.select(this).classed("selected", false);
@@ -461,6 +460,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					updateDotPlot(selectedYear);
 				};
 
+				// Return selected point to un-highlighted state when mouse leaves
 				function handleMouseleave(event, d) {
 					
 					// Return selected to normal
@@ -489,9 +489,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 						.attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 
 						.attr("cy", (d) => { return (ySCALE_REV(d.Proportion_Area_Deforested) + MARGINS.top); }) 
 						.attr("r", 7)
-						.attr("fill", "green")
-						.attr("opacity", "1")
-						.attr("class", "vis1-point")
+						.attr("class", "point")
 						.attr("id", (d) => { return d.Year; })
 					.on("mouseover", handleMouseover) // Add event listeners
 					.on("mouseleave", handleMouseleave)
