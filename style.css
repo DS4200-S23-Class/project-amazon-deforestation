@@ -1,16 +1,21 @@
-/* Set font of page to Arial */
+/* CSS file for Amazon Deforestation Project
+Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
+DS4200 || Prof. Mosca
+Last Modified: 04.17.2023 
+*/
+
+/* Set font of page to Arial and the background color to a light green */
 body {
     font-family: Arial;
     background-color: #E6FFCC;
 }
 
+/* Align all header-1s to the center */
 h1 {
     text-align: center;
 }
 
-
-
-/* styling for navigation bar */
+/* Add styling for navigation bar */
 .navbar {
     overflow: hidden;
     background-color: darkgreen;
@@ -26,20 +31,17 @@ h1 {
     text-decoration: none;
 }
 
+/* Create a class to center items */
 .center {
     text-align: center;
 }
 
-
-/* Styling for Visualization 1 */
-
+/* Styling to highlight an object */
 .highlight {
     stroke: lightseagreen;
     stroke-width: 3px;
 }
 
-
-/* VISUALIZATION 1.2 SPECIFIC STYLING [BARPLOT] */
 /* Add class styling the bars of the barplot */
 .bar {
     fill: rosybrown;
@@ -47,6 +49,7 @@ h1 {
     stroke-width: 3px;
 }
 
+/* Add styling for the tooltip */
 .pt-tooltip {
     opacity: 0;
     background-color: green;
@@ -56,14 +59,20 @@ h1 {
     padding: 3px;
     position: absolute;
     color: ghostwhite;
-
 }
 
+/* Add styling for the points */
 .point {
     fill: green;
     opacity: 1;
 }
 
+.pt {
+    stroke: brown;
+    stroke-width: 2;
+}
+
+/* Style the plots */
 .axis-text {
     font-size: 10px;
 }
@@ -78,19 +87,14 @@ h1 {
     font-size: 22px;
 }
 
+/* Add a border around the dot plot */
 .border {
     stroke: black;
     stroke-width: 5px;
     fill: none;
 }
 
-/* Add class styling the slider */
-#slider {
-    width: 100%;
-    height: 100%;
-    scroll-snap-type: x mandatory;
-}
-
+/* Add positioning for the bird */
 #bird-motiv {
     width: 5%;
     height: 8%;
@@ -114,24 +118,15 @@ h1 {
     top: 40px;
     left: 390px;
 }
-/*.tooltip {
-    opacity: 0;
-    background-color: lightgrey;
-    border: solid;
-    border-width: 2px;
-    border-radius: 7px;
-    padding: 3px;
-    position: absolute;
-}*/
 
+/* Add the line */
 .line {
     fill: none;
     stroke: black;
     stroke-width: 2px;
 }
 
-/* VISUALIZATION 3 SPECIFIC STYLING [PIE CHART] */
-
+/* Add styling for the pie charts */
 .slices {
     stroke: black;
     stroke-width: 2px;
@@ -147,14 +142,15 @@ h1 {
     text-anchor: left;
     text-align: center;
     font-size: 11px;
+    fill: black;
 }
 
+/* Fill the point/bar with brown if selected */
 .selected {
     fill: #4A0404;
     stroke: #00FF00;
     opacity: 1;
 }
-
 
 /* Creates a flex container to make 2 columns */
 .flex-container {
@@ -200,12 +196,3 @@ h1 {
     stroke: lime;
     stroke-width: 5px;
 }
-
-
-
-
-
-
-
-
-

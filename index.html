@@ -1,3 +1,8 @@
+<!-- Index HTML file for Amazon Deforestation Project
+Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
+DS4200 || Prof. Mosca
+Last Modified: 04.17.2023 -->
+
 <!DOCTYPE html>
 <html lang="en"> 
 
@@ -16,82 +21,34 @@
 
 
 <body>
+    <!-- Add the bird that shows the user which page they are on in the menu bar -->
     <img src="imgs/bird.png" alt="bird" id="bird-viz">
+    
+    <!-- Add the header and navigation bar -->
     <h1>Deforestation in the Amazon</h1>
-
     <div class="navbar">
         <a href="motiv.html">Motivation & Background</a>
         <a href="index.html">Visualizations</a>
         <a href="sources.html">Acknowledgements</a>
     </div>
 
-     <!-- <div class="flex-container"> -->
-<!--         <div id="button" class="centered">
-            <button type="button">Toggle Motivation</button>
-        </div>
-    <div id='motivation' display="none" class="flex-left">
-        <h2>Motivation</h2>
-        <h4>Domain</h4>
-        <p>
-            This project is primarily motivated by the urgency of environmental degradation. As Earth crumbles around us, we type our little fingers on our keyboards. We like to seek co-ops while forests burn and animals die. The domain area our project addresses is deforestation. We want to focus specifically on the deforestation present in the Amazon Rainforest, which is the largest rainforest in the world. The domain problem we would like to solve is to help people understand the rising concerns regarding this matter, identify trends, and take action accordingly. With changes in aspects such as policies and public interest, deforestation levels have changed with time but have continuously been an issue. Solving this problem is important because trees/forests play a large role in our society and wildlife. For instance, the Amazon Rainforest is home to a multitude of plants and animals. With increasing deforestation levels, these plants and animals would be lost and thus cause an imbalance in ecosystems and food chains. Another example is how we rely on trees for natural resources such as air and wood. Forests are also carbon sinks, one of our primary allies in the fight against global warming and the increasing quantity of greenhouse gases in the atmosphere. To maintain our environment and to be able to seek these benefits later on, we must first identify and get a better sense of the issue, then take measures to tackle it. 
-        </p>
-        <h4>Use Case</h4>
-        <p>
-            As a result, the use case of our project is to allow the general public and others to be able to identify trends in deforestation and concerns related to the level of deforestation. This can then be used to help persuade Brazilian politicians to take more aggressive action to preserve the Amazon. While they are most likely aware that deforestation is occurring, the visualization can show the extreme extent to which it is happening. If changes aren’t made, deforestation will continue to increase. The visualization can also be presented to the public to help increase awareness of the situation, so that changes may be made due to activism and support from the public.
-        </p>
-    </div>
-
-
-     <div>
-        <h2>Background</h2>
-     <div>
-        <div id="button-div" class="centered">
-            <button type="data-button">Toggle Data</button>
-        </div>
-    </div> -->
-<!--     <div id='data' class="flex-right">
-        <h2>Background</h2>
-        <h4>Data</h4>
-        <p>
-            This tool visualizes data from the Brazilian National Institute for Space Research (INPE) regarding deforestation in the Amazon forest by area. The data comes from Diego Silva. Diego collected the data from a data lake created by the Brazilian National Institute for Space Research (INPE) on the BigQuery.
-
-            This data contains information related to the deforestation of the Amazon rainforest in different counties over 21 years, from 2000 to 2021. It includes the total area of the county, deforested area, forest area, cloud area, non-observed area, non-forest area, and hydrography area. This tool utilizes the range maximum, range minimum, midyear, and average proportion area deforested columns for the histogram. For the lineplot, the year and proportion area deforested are used. 
-        </p>
-        <h4>Biases and Ethics</h4>
-            <p>
-            In terms of biases or ethical considerations for our data, since the counties/municipalities represented in the dataset are based on natural and/or political boundaries, there is inherent bias when it comes to the size of a certain area of land. It will evidently be the case that the larger a county/municipality is, the larger a certain area of land found within the county/municipality will be. As a result, we have decided to create new attributes representing the proportions of certain areas of land with regards to the total area a county/municipality encompasses; this will take into account the discrepancies in the sizes of counties/municipalities.
-
-            The attributes of the data we examined are primarily displayed in another language and an English translation is available below. This may have led to translation discrepancies and slightly different interpretations of what each value represents. Additionally, some columns contained multiple missing values. This issue was addressed through data cleaning. 
-        </p>
-        <h4>Data & Report</h4>
-            <div>
-            <p>
-                To access the data, click <a href="https://www.kaggle.com/datasets/diegosilvadefrana/brazilian-deforestation-from-2000-to-2021?resource=download&select=data.csv">here</a>.
-                To access the report, click <a href="https://www.overleaf.com/read/ptqfwbyrskgn">here</a>.
-            </p>
-            </div>
-
-        </div>
-        TODO: Add link to report, demo video, link to data etc. here   
-    </div> -->
- 
-
+    <!-- Add divs for the visual encodings -->
     <div>
         <h2 class="center">Visualizations</h2>
 
-        <!-- Create a div for Visual Encoding 1 -->
+        <!-- Create a div for Visual Encoding 1, the histogram + line plot -->
         <div id="vis-enc-1" align="center"></div>  
     </div>
 
     <div class="flex-container">
         <div class="flex-left">
-            <!-- Create a div for Visual Encoding 2 -->
-            <div id="vis-enc-2" align="center"></div>
-            <!-- <p align="center">1 "Tree" = 0.5% of Rainforest</p> -->
-        </div>
 
+            <!-- Create a div for Visual Encoding 2, the dot plot -->
+            <div id="vis-enc-2" align="center"></div>
+        </div>
         <div class="flex-right">
-           <!-- Create a div for Visual Encoding 3 -->
+
+           <!-- Create a div for Visual Encoding 3, the pie chart -->
            <div id="vis-enc-3" align="center"></div>
         </div>
     </div>
