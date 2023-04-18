@@ -1,7 +1,7 @@
 // JS file for Amazon Deforestation Project
 // Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
 // DS4200 || Prof. Mosca
-// Last Modified: 04.17.2023 
+// Last Modified: 04.18.2023 
 
 
 // Instantiate visualization dimensions/limitations
@@ -13,7 +13,7 @@ const VIS_HEIGHT = FRAME_HEIGHT - MARGINS.top - MARGINS.bottom;
 const VIS_WIDTH = FRAME_WIDTH - MARGINS.left - MARGINS.right;
 
 
-/* =====================  VISUALIZATION 1: BAR CHART  ===========================*/
+/* =====================  VISUALIZATION 1.1: HISTOGRAM  ===========================*/
 
 // Append the bars to the FRAME1 element
 const FRAME1 = d3.select("#vis-enc-1").append("svg")
@@ -36,7 +36,7 @@ d3.csv("avg_def_data.csv").then((data) => {
 	    .domain([d3.min(data, function(d) { return d.Range_Minimums; }), d3.max(data, function(d) { return d.Range_Maximums; })])
 	    .range([0, VIS_WIDTH]);
 
-	// Create a tooltip for the barplot
+	// Create a tooltip for the histogram
     const TOOLTIP = d3.select("#vis-enc-1")
                        .append("div")
 					   .attr("class", "pt-tooltip");
@@ -126,15 +126,17 @@ d3.csv("avg_def_data.csv").then((data) => {
 
 });
 
-/* =====================  VISUALIZATION 2: DOT PLOT  ===========================*/
+/* =====================  VISUALIZATION 2.1: DOT PLOT  ===========================*/
 
-// Create a frame for the second visual encoding
+// Create a frame for Visual Encoding 2
 const FRAME2 = d3.select("#vis-enc-2").append("svg")
     .attr("height", FRAME_HEIGHT)
     .attr("width", FRAME_WIDTH)
     .attr("class", "frame");
 
+// Read in the data for the dot plot
 d3.csv("all_scatter_points.csv").then((dotdata) => {
+	// Read in the data for the line plot
 	d3.csv("def_data.csv").then((def_data) => {
 
 		// Print the data
@@ -143,7 +145,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 		const MAX_X_LENGTH = d3.max(dotdata, (d) => { return parseInt(d.x); });
 		const MAX_Y_LENGTH = d3.max(dotdata, (d) => { return parseInt(d.y); });
 
-		// Create the scales for scatter plot
+		// Create the scales for the dot plot
 		const ySCALE = d3.scaleLinear() 
 			.domain([0, MAX_Y_LENGTH])
 			.range([VIS_HEIGHT, 0]);
@@ -155,7 +157,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 		// Append the points to the dot plot
 		let myPoints = FRAME2.append("g")
 			.selectAll("points")  
-			.data(dotdata) // Passed from .then  
+			.data(dotdata)  
 			.enter()       
 			.append("circle")
 				.attr("cx", (d) => { return (xSCALE(d.x) + 25); })
@@ -164,12 +166,12 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 				.attr("r", 8)
 				.attr("class", "pt")
 				.attr("fill", function (d) {
-					if((d.x-1) < 9 || ((d.x-1) == 9 && d.y <= 5)){ // hard code coords for 2000 to start
+					if((d.x-1) < 9 || ((d.x-1) == 9 && d.y <= 5)){ 
 						return "green";
 					} else {
 						return "#DFBE9F";
 					};})
-				.on("mouseover", handleMouseover)
+				.on("mouseover", handleMouseover) // Add event listeners
 			    .on("mousemove", handleMousemove)
 			    .on("mouseleave", handleMouseleave);
 
@@ -211,7 +213,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 						.attr("x", 35)
 						.attr("y", 37);
 
-		// Create a tooltip for the points on the line
+		// Create a tooltip for the points on the line plot
 		const TOOLTIP = d3.select("#vis-enc-2")
 						  .append("div")
 						  .attr("class", "pt-tooltip");
@@ -256,7 +258,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 			d3.select(this).classed("highlight-slice", false);
 		};
 
-/* =====================  VISUALIZATION 3: PIE CHART  ===========================*/
+/* =====================  VISUALIZATION 2.2: PIE CHART  ===========================*/
 
 		// Read in the .csv file for Visual Encoding 3
 		d3.csv("all_pie_slices.csv").then(function(piedata) {
@@ -301,18 +303,18 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 							.attr('d', arcGenerator)
 							.attr('fill', function(d){ return(color(d.data[0])) })
 							.attr("class", "slices")
-							.on("mouseover", handleMouseover)
+							.on("mouseover", handleMouseover) // Add event listeners
 							.on("mousemove", handleMousemove)
 							.on("mouseleave", handleMouseleave);
 
-			// Update the pie chart according to the selectedyear
+			// Update the pie chart according to the selected year
 			function updatePieChart(year) {
 				let pieData = {};
 				piedata.forEach(function(d) {
 					pieData[d.Area_Status] = d['Deforested_Forested_Percentages_' + year];
 				});
 
-				// Add the slices to the pie
+				// Update the slices of the pie
 				let pie = d3.pie()
 				.value(function(d) {return d[1]});
 				let data_ready = pie(Object.entries(pieData));
@@ -371,7 +373,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 					.style("alignment-baseline", "middle")
 					.attr("class", "sq-labs");
 
-			// Create a tooltip for the points on the line
+			// Create a tooltip for the slices of the pie
 			const TOOLTIP = d3.select("#vis-enc-3")
 							.append("div")
 							.attr("class", "pt-tooltip");
@@ -410,13 +412,13 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 
 
 /* =====================  VISUALIZATION 1.2: LINE PLOT  ===========================*/
-
+			// Read in the data for the line plot
 			d3.csv("def_data.csv").then((linedata) => {
 
 				// Print the data
 				console.log(linedata);
 
-				// Create the scales for the scatter plot
+				// Create the scales for the line plot
 				const ySCALE_REV = d3.scaleLinear() 
 					.domain([0, d3.max(linedata, (d) => { return d.Proportion_Area_Deforested; })])  
 					.range([VIS_HEIGHT, 0]);
@@ -483,7 +485,7 @@ d3.csv("all_scatter_points.csv").then((dotdata) => {
 				// Append points to the visualization
 				let myPoints = FRAME1.append("g")
 					.selectAll("points")  
-					.data(linedata) // Passed from .then  
+					.data(linedata)   
 					.enter()       
 					.append("circle")
 						.attr("cx", (d) => { return (xSCALE(d.Year) + MARGINS.left); }) 

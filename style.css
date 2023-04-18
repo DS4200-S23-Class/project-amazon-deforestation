@@ -1,7 +1,7 @@
 /* CSS file for Amazon Deforestation Project
 Luke Abbatessa, Jenny Cai, Jocelyn Ju, Varun McIntyre
 DS4200 || Prof. Mosca
-Last Modified: 04.17.2023 
+Last Modified: 04.18.2023 
 */
 
 /* Set font of page to Arial and the background color to a light green */
@@ -36,13 +36,13 @@ h1 {
     text-align: center;
 }
 
-/* Styling to highlight an object */
+/* Add styling to highlight an object */
 .highlight {
     stroke: lightseagreen;
     stroke-width: 3px;
 }
 
-/* Add class styling the bars of the barplot */
+/* Add a class to style the bars of the histogram */
 .bar {
     fill: rosybrown;
     stroke: saddlebrown;
@@ -119,14 +119,14 @@ h1 {
     left: 390px;
 }
 
-/* Add the line */
+/* Add the line for the line plot */
 .line {
     fill: none;
     stroke: black;
     stroke-width: 2px;
 }
 
-/* Add styling for the pie charts */
+/* Add styling for the pie chart */
 .slices {
     stroke: black;
     stroke-width: 2px;
@@ -145,35 +145,35 @@ h1 {
     fill: black;
 }
 
-/* Fill the point/bar with brown if selected */
+/* Fill the point/bar of Visual Encoding 1 with brown if selected */
 .selected {
     fill: #4A0404;
     stroke: #00FF00;
     opacity: 1;
 }
 
-/* Creates a flex container to make 2 columns */
+/* Create a flex container to make two columns */
 .flex-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
-/* Adjusts the left column */
+/* Adjust the left column */
 .flex-left {
     width: 50%;
     flex-wrap: flex;
     flex-direction: column;
 }
 
-/* Adjusts the right column */
+/* Adjust the right column */
 .flex-right {
     flex-direction: column;
     width: 50%;
     flex-wrap: wrap;
 }
 
-/* Adjusts the left column */
+/* Adjust the text of the left column */
 .flex-left-text {
     width: 45%;
     flex-wrap: flex;
@@ -181,7 +181,7 @@ h1 {
     margin-left: 20px;
 }
 
-/* Adjusts the right column */
+/* Adjust the text of the right column */
 .flex-right-text {
     flex-direction: column;
     width: 45%;
@@ -191,7 +191,7 @@ h1 {
     margin-right: 20px;
 }
 
-/* Highlight the slice of the bar chart on click */
+/* Highlight the slice of the histogram on click */
 .highlight-slice {
     stroke: lime;
     stroke-width: 5px;
